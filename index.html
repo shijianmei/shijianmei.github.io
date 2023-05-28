@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Shi">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Shi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Shi">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Shi</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shi</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/shijianmei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/06/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/06/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">热修复设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-06 19:04:10" itemprop="dateCreated datePublished" datetime="2023-05-06T19:04:10+08:00">2023-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-18 12:25:29" itemprop="dateModified" datetime="2023-05-18T12:25:29+08:00">2023-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">系统设计</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="为什么要搭建热修复平台"><a href="#为什么要搭建热修复平台" class="headerlink" title="为什么要搭建热修复平台"></a>为什么要搭建热修复平台</h1><p>随着公司的快速发展，需求的快速增加，App迭代也越来越频繁，如果移动应用出现问题，不仅仅影响用户体验，还会影响公司口碑，甚至可能造成资损。需要快速修复线上问题，对比常规的开发流程而言，热修复更加灵活方便，优势很多：</p>
+<p>● 无需重新发版，实时高效修复bug；<br>● 用户无感知修复，无需下载新的版本，代价小；<br>● 修复成功率高，能把损失降到最低；<br>● 因此热修平台愈加重要，需要搭建一个高效，好用且安全的热修复平台。</p>
+<h1 id="具体设计："><a href="#具体设计：" class="headerlink" title="具体设计："></a>具体设计：</h1><h2 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h2><p>链路流程图:</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E9%93%BE%E8%B7%AF%E6%B5%81%E7%A8%8B%E5%9B%BE.png"></p>
+<h2 id="时序图："><a href="#时序图：" class="headerlink" title="时序图："></a>时序图：</h2><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E6%8B%89%E5%8C%85%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
+<h2 id="各平台要做的事情"><a href="#各平台要做的事情" class="headerlink" title="各平台要做的事情"></a>各平台要做的事情</h2><h3 id="热修复管理平台："><a href="#热修复管理平台：" class="headerlink" title="热修复管理平台："></a>热修复管理平台：</h3><p>热修复管理系统分前后端，主要支持补丁的上传、发布、停止，用户角色的创建及管理，以及供客户端调的接口：获取热修复包、是否存在最新修复包两个接口</p>
+<h4 id="上传补丁："><a href="#上传补丁：" class="headerlink" title="上传补丁："></a>上传补丁：</h4><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E4%BF%AE%E5%A4%8D%E5%8C%85%E6%B7%BB%E5%8A%A0.png"></p>
+<p>上传补丁到服务端和app包的某一个版本号一一对应</p>
+<h4 id="管理补丁："><a href="#管理补丁：" class="headerlink" title="管理补丁："></a>管理补丁：</h4><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E4%BF%AE%E5%A4%8D%E5%8C%85%E7%AE%A1%E7%90%86.png"></p>
+<p>补丁状态说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">已就绪</td>
+<td align="left">补丁上传成功，等待操作。</td>
+</tr>
+<tr>
+<td align="left">灰度中</td>
+<td align="left">补丁正在进行部分设备灰度发布中。</td>
+</tr>
+<tr>
+<td align="left">已发布</td>
+<td align="left">补丁已全量发布至所有设备。</td>
+</tr>
+<tr>
+<td align="left">已停止</td>
+<td align="left">补丁发布行为已暂停，服务端停止下发补丁，客户端已经下载的补丁继续生效。</td>
+</tr>
+</tbody></table>
+<h4 id="发布补丁："><a href="#发布补丁：" class="headerlink" title="发布补丁："></a>发布补丁：</h4><p>发布之后，app端即可拉去到有效的补丁</p>
+<h4 id="停止发布："><a href="#停止发布：" class="headerlink" title="停止发布："></a>停止发布：</h4><p>在补丁列表的操作里点终止操作，不在下发到客户端</p>
+<h4 id="数据相关："><a href="#数据相关：" class="headerlink" title="数据相关："></a>数据相关：</h4><table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">通知设备</td>
+<td align="left">本次补丁下发包含的所有设备数。</td>
+</tr>
+<tr>
+<td align="left">下载成功设备</td>
+<td align="left">补丁已下载成功的所有设备数。</td>
+</tr>
+<tr>
+<td align="left">加载成功设备</td>
+<td align="left">补丁已加载成功的所有设备数。</td>
+</tr>
+<tr>
+<td align="left">主动清除成功数</td>
+<td align="left">客户端调用清除补丁接口或者控制台操作全部回滚后补丁清除成功的设备数。</td>
+</tr>
+</tbody></table>
+<h3 id="客户端库："><a href="#客户端库：" class="headerlink" title="客户端库："></a>客户端库：</h3><p>基于 MangoFix 封装, 实现了拉修复包，缓存，修复等功能。</p>
+<p>设计流程图:</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
+<p>基于补丁是从服务端拉取的,有一定的延时,为了不影响启动时间及代码修复,同时也为了减少每次冷启重复的请求，故加入缓存机制。</p>
+<h3 id="辅助工具"><a href="#辅助工具" class="headerlink" title="辅助工具"></a>辅助工具</h3><p>在修复完线上问题后需要制作补丁包上传到服务端，该工具为此提供了便利</p>
+<ul>
+<li><p>补丁脚本生成功能：<br>补丁脚本是类oc语法，与OC语法还是有些差异，通过该工具生成补丁脚本，可节约时间，减少错误</p>
+</li>
+<li><p>补丁包生成功能：<br>最终上传到服务器的补丁包是基于补丁脚本通过AES加密生成一个二进制文件流，通过导出包功能最终生成上传到服务端的补丁包</p>
+</li>
+</ul>
+<h2 id="发布策略："><a href="#发布策略：" class="headerlink" title="发布策略："></a>发布策略：</h2><p>全量发布：</p>
+<pre><code>全量发布，不用解释，补丁对应版本App所有用户都可拉取补丁
+</code></pre>
+<p>灰度发布：</p>
+<pre><code>灰度下发支持按人数灰度 与 按比例灰度，按照人数灰度相对简单，因此这里只说下按比例灰度，灰度如果按照总人数的百分比进行下发，有可能会下发到不活跃用户的设备上，让百分比下发失去意义。目前一个简单的方式是实现哈希碰撞算法，概率可调，当App端请求补丁时，根据设备的唯一标识进行碰撞，落到概率区间内则下发补丁。
+</code></pre>
+<p>条件发布：</p>
+<pre><code>需要在小范围内进行验证，比如特定某个系统版本或者特定某个用户；在验证通过后再进行全网用户的下发，这中场景下可以使用条件下发。
+</code></pre>
+<h2 id="传输安全："><a href="#传输安全：" class="headerlink" title="传输安全："></a>传输安全：</h2><p>对补丁进行AES加密，生成二进制文件</p>
+<h2 id="监控："><a href="#监控：" class="headerlink" title="监控："></a>监控：</h2><pre><code>修复情况（crash监控等）
+拉取补丁设备数
+</code></pre>
+<h1 id="完成度："><a href="#完成度：" class="headerlink" title="完成度："></a>完成度：</h1><ul>
+<li><input checked="" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://github.com/shijianmei/hotfixMS">热修复管理系统具前端</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://git@github.com:shijianmei/hotfixServer.git">热修复管理系统具前端后端</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://git@github.com:shijianmei/PatchGenerater.git">热修复脚本生成工具</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://github.com/shijianmei/ProblemTerminator">iOS端热修复库封装</a></li>
+<li><input disabled="" type="checkbox"> 条件发布、灰度发布</li>
+<li><input disabled="" type="checkbox"> 数据指标统计（补丁读取耗时、补丁读取成功设备数）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/25/iOS%E6%8E%A5%E5%85%A5Flutter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/25/iOS%E6%8E%A5%E5%85%A5Flutter/" class="post-title-link" itemprop="url">iOS接入Flutter</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-04-25 18:50:04" itemprop="dateCreated datePublished" datetime="2023-04-25T18:50:04+08:00">2023-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 16:25:25" itemprop="dateModified" datetime="2023-05-24T16:25:25+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>toDo</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/21/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/21/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">启动优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-01-21 11:17:46" itemprop="dateCreated datePublished" datetime="2023-01-21T11:17:46+08:00">2023-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-26 13:48:13" itemprop="dateModified" datetime="2023-04-26T13:48:13+08:00">2023-04-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/iOS%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">iOS优化</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h1><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%89%87.png"></p>
+<p>启动过程以main为界限，分为pre-main和main之后两部分</p>
+<h2 id="pre-main"><a href="#pre-main" class="headerlink" title="pre-main"></a>pre-main</h2><h3 id="加载dyld"><a href="#加载dyld" class="headerlink" title="加载dyld"></a>加载dyld</h3><p>动态库载入过程，会去装载app使用的动态库。而每一个动态库有它自己的依赖关系，会消耗时间去查找和读取。</p>
+<h3 id="rebase-amp-binding"><a href="#rebase-amp-binding" class="headerlink" title="rebase&amp;binding"></a>rebase&amp;binding</h3><p>rebase：主要是调整镜像内部的指针，这里使用了ASLR(Address Space Layout Randomization 地址空间布局随机化)。程序每次启动后地址都会随机变化，这样程序里的所有代码地址都需要重新进行计算修复</p>
+<p>binding：修复指向外部的指针。比如app中调用了NSLog函数打印信息，NSLog是系统函数，在程序开始运行的时候app是不知道NSLog函数指针是多少，此时就需要通过dyld_stub_binder技术找到NSLog指针地址进行调用。</p>
+<h3 id="Objc-setup"><a href="#Objc-setup" class="headerlink" title="Objc setup"></a>Objc setup</h3><p>runtime在此处初始化，对class和category进行注 册，selector唯一性判断</p>
+<p>load&amp;constructor&amp;initialize</p>
+<p>调用所有类的load的方法，初始化C&amp;C++的静态化变量，然后调用 constructor 函数</p>
+<h2 id="main之后"><a href="#main之后" class="headerlink" title="main之后"></a>main之后</h2><h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3><p>创建整个app的autoreleasepool，初始化初始window，app界面开始展示</p>
+<h3 id="LifeCyle"><a href="#LifeCyle" class="headerlink" title="LifeCyle"></a>LifeCyle</h3><p>指定rootviewcontroller，调用业务代码，完成各阶段业务</p>
+<h3 id="First-Frame"><a href="#First-Frame" class="headerlink" title="First Frame"></a>First Frame</h3><p>main页面viewDidAppear 完成页面第一帧渲染。至此启动完成。</p>
+<h1 id="分析工具"><a href="#分析工具" class="headerlink" title="分析工具"></a>分析工具</h1><h2 id="pre-main阶段耗时分析"><a href="#pre-main阶段耗时分析" class="headerlink" title="pre-main阶段耗时分析:"></a>pre-main阶段耗时分析:</h2><p>在 Xcode 中 Edit scheme -&gt; Run -&gt; Auguments 将环境变量 DYLD_PRINT_STATISTICS 设为1</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Total pre<span class="literal">-main</span> time: <span class="number">1.2</span> seconds (<span class="number">100.0</span>%)</span><br><span class="line">dylib loading time: <span class="number">297.95</span> milliseconds (<span class="number">23.5</span>%)</span><br><span class="line">rebase/binding time: <span class="number">100.67</span> milliseconds (<span class="number">7.9</span>%)</span><br><span class="line">ObjC setup time: <span class="number">110.68</span> milliseconds (<span class="number">8.7</span>%)</span><br><span class="line">initializer time: <span class="number">758.19</span> milliseconds (<span class="number">59.8</span>%)</span><br><span class="line">slowest intializers :</span><br><span class="line">libSystem.B.dylib : <span class="number">6.71</span> milliseconds (<span class="number">0.5</span>%)</span><br><span class="line">libMainThreadChecker.dylib : <span class="number">40.29</span> milliseconds (<span class="number">3.1</span>%)</span><br><span class="line">GPUToolsCore : <span class="number">37.95</span> milliseconds (<span class="number">2.9</span>%)</span><br><span class="line">libglInterpose.dylib : <span class="number">363.65</span> milliseconds (<span class="number">28.6</span>%)</span><br><span class="line">AiWayFashionCar : <span class="number">471.71</span> milliseconds (<span class="number">37.2</span>%)</span><br></pre></td></tr></table></figure>
+<p>如果将 Edit scheme -&gt; Run &gt; Auguments 将环境变量 DYLD_PRINT_STATISTICS_DETAILS 设为1，则可以更多详细的pre-main阶段的耗时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">total time: 2.1 seconds (100.0%)</span><br><span class="line">total images loaded: 526 (508 from dyld shared cache)</span><br><span class="line">total segments mapped: 66, into 8235 pages</span><br><span class="line">total images loading time: 1.0 seconds (49.3%)</span><br><span class="line">total load time in ObjC: 124.33 milliseconds (5.8%)</span><br><span class="line">total debugger pause time: 753.19 milliseconds (35.7%)</span><br><span class="line">total dtrace DOF registration time: 0.00 milliseconds (0.0%)</span><br><span class="line">total rebase fixups: 830,184</span><br><span class="line">total rebase fixups time: 95.24 milliseconds (4.5%)</span><br><span class="line">total binding fixups: 851,403</span><br><span class="line">total binding fixups time: 523.97 milliseconds (24.8%)</span><br><span class="line">total weak binding fixups time: 3.85 milliseconds (0.1%)</span><br><span class="line">total redo shared cached bindings time: 533.55 milliseconds (25.3%)</span><br><span class="line">total bindings lazily fixed up: 0 of 0</span><br><span class="line">total time in initializers and ObjC +load: 320.90 milliseconds (15.2%)</span><br><span class="line">kscrash libSystem.B.dylib : 6.78 milliseconds (0.3%)</span><br><span class="line">libBacktraceRecording.dylib : 6.98 milliseconds (0.3%)</span><br><span class="line">libobjc.A.dylib : 2.52 milliseconds (0.1%)</span><br><span class="line">libMainThreadChecker.dylib : 40.53 milliseconds (1.9%)</span><br><span class="line">Flutter : 2.95 milliseconds (0.1%)</span><br><span class="line">AiWayFashionCar : 396.86 milliseconds (18.8%)</span><br><span class="line">total symbol trie searches: 1793354</span><br><span class="line">total symbol table binary searches: 0</span><br><span class="line">total images defining weak symbols: 63</span><br><span class="line">total images using weak symbols: 143</span><br></pre></td></tr></table></figure>
+<p>备注:这里要跑低于ios 15.0的系统,才会在控制台打印</p>
+<h2 id="项目里用到的动态库："><a href="#项目里用到的动态库：" class="headerlink" title="项目里用到的动态库："></a>项目里用到的动态库：</h2><p>通过命令 <strong>otool</strong>**-**<strong>L</strong> +  包路径查看使用了的动态库（包含系统库、嵌入的动态库）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -L /Users/mac/Desktop/Debugiphoneos/AiWayFashionCar.app/AiWayFashionCar</span><br></pre></td></tr></table></figure>
+<p>执行结果如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/libbz2.1.0.dylib (compatibility version 1.0.0, current version 1.0.8)</span><br><span class="line">/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1200.3.0)</span><br><span class="line">/usr/lib/libsqlite3.dylib (compatibility version 9.0.0, current version 331.0.0)</span><br><span class="line">/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.11)</span><br><span class="line">@rpath/ATAuthSDK_D.framework/ATAuthSDK_D (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/App.framework/App (compatibility version 0.0.0, current version 0.0.0)</span><br><span class="line">/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox (compatibility version 1.0.0, current version 1000.0.0)</span><br><span class="line">/System/Library/Frameworks/CFNetwork.framework/CFNetwork (compatibility version 1.0.0, current version 1327.0.4)</span><br><span class="line">/System/Library/Frameworks/EventKit.framework/EventKit (compatibility version 1.0.0, current version 1716.2.2)</span><br><span class="line">@rpath/FMDB.framework/FMDB (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/Flutter.framework/Flutter (compatibility version 0.0.0, current version 0.0.0)</span><br><span class="line">/System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1856.105.0)</span><br><span class="line">/System/Library/Frameworks/GLKit.framework/GLKit (compatibility version 1.0.0, current version 126.0.0)</span><br><span class="line">/System/Library/Frameworks/ImageIO.framework/ImageIO (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/System/Library/Frameworks/WebKit.framework/WebKit (compatibility version 1.0.0, current version 612.3.6)</span><br><span class="line">@rpath/flutter_boost.framework/flutter_boost (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/path_provider.framework/path_provider (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/shared_preferences.framework/shared_preferences (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/sqflite.framework/sqflite (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/video_player.framework/video_player (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/wakelock.framework/wakelock (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/webview_flutter.framework/webview_flutter (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/System/Library/Frameworks/AppTrackingTransparency.framework/AppTrackingTransparency (compatibility version 1.0.0, current version 1.0.0, weak)</span><br><span class="line">/System/Library/Frameworks/UserNotifications.framework/UserNotifications (compatibility version 1.0.0, current version 1.0.0, weak)</span><br><span class="line">/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)</span><br><span class="line">/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1311.0.0)</span><br><span class="line">/System/Library/Frameworks/AVKit.framework/AVKit (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/usr/lib/libnetwork.dylib (compatibility version 1.0.0, current version 1.0.0, weak)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里以/System ,/usr开头的是系统动态库</li>
+<li>以@rpath开头的是嵌入动态库,如u3d,flutter及其依赖项使用了动态库<h2 id="查找无用类、分类"><a href="#查找无用类、分类" class="headerlink" title="查找无用类、分类"></a>查找无用类、分类</h2></li>
+</ul>
+<p>代码覆盖率检测等</p>
+<p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/objc/download/">AppCode</a></p>
+<p>基于LLVM插件检测重复代码或者未被使用的代码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/erduoniba/hdcoverage">GitHub - erduoniba/hdcoverage: iOS（swift&amp;oc）自动注入代码覆盖率指令脚本，</a></p>
+<h2 id="查看项目里调了哪些load方法："><a href="#查看项目里调了哪些load方法：" class="headerlink" title="查看项目里调了哪些load方法："></a>查看项目里调了哪些load方法：</h2><p>如果将 Edit scheme -&gt; Run &gt; Auguments 环境变量里加：OBJC_PRINT_LOAD_METHODS 设为YES</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">objc[11939]: LOAD: +[NSMutableDictionary(SwizzlSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[NSNull(SwizzSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[NSString(SwizzlSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[NSMutableString(SwizzlSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[UIControl(AW) load]</span><br><span class="line">objc[11939]: LOAD: +[UIApplication(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[UINavigationController(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[UITouch(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[UIViewController(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[NSObject(JPInjecting) load]</span><br><span class="line">objc[11939]: LOAD: +[UITextView(RCSBackWord) load]</span><br><span class="line">objc[11939]: LOAD: +[UITabBarController(ShouldAutorotate) load]</span><br><span class="line">objc[11939]: LOAD: +[UIApplication(BaiduMobStatApplication) load]</span><br><span class="line">objc[11939]: LOAD: +[UICollectionViewLayout(MJRefresh) load]</span><br><span class="line">objc[11939]: LOAD: +[UIScrollView(MJExtension) load]</span><br><span class="line">objc[11939]: LOAD: +[NSObject(MJKeyValue) load]</span><br></pre></td></tr></table></figure>
+<h2 id="缺页异常引起的耗时分析"><a href="#缺页异常引起的耗时分析" class="headerlink" title="缺页异常引起的耗时分析:"></a>缺页异常引起的耗时分析:</h2><p>打开 <code>Instruments</code> , 选择 System Trace<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%89%8D.png"><br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%90%8E.png"></p>
+<h2 id="main之后各阶段耗时分析"><a href="#main之后各阶段耗时分析" class="headerlink" title="main之后各阶段耗时分析:"></a>main之后各阶段耗时分析:</h2><p>打开 <code>Instruments</code> , 选择 App Launch , Time Profile<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90.png"><br>结合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSDate* tmpStartData = [NSDate date];    </span><br><span class="line">//耗时函数    </span><br><span class="line">double deltaTime = [[NSDate date] timeIntervalSinceDate:tmpStartData];</span><br><span class="line">NSLog(@&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;unity_launch_costTime = %f ms&quot;, deltaTime*1000);</span><br></pre></td></tr></table></figure>
+<h1 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h1><h2 id="pre-main优化"><a href="#pre-main优化" class="headerlink" title="pre-main优化"></a>pre-main优化</h2><h3 id="二进制重排"><a href="#二进制重排" class="headerlink" title="二进制重排"></a>二进制重排</h3><p>为了能减少系统因缺页中断产生的 Page In 操作，我们需要做的就是把启动链路上所有用到的方法都排在连续的页上，这样系统在加载符号的时候就可以减少相应的内存页数量的访问，从而减少整个启动过程的耗时</p>
+<h3 id="动态库改造"><a href="#动态库改造" class="headerlink" title="动态库改造:"></a>动态库改造:</h3><p>项目用到的嵌入动态库主要是U3d,Flutter及其依赖库</p>
+<p>U3d库因为有要求必须得用动态库,故不作改造</p>
+<p>这里只把flutter依赖库改造为静态库,思路是在flutter模块的podfile里添加:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">    target.build_configurations.each do |config|    </span><br><span class="line">      config.build_settings[&#x27;MACH_O_TYPE&#x27;] = &#x27;staticlib&#x27;</span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>Flutter的引入是通过构建脚本生成动态库,然后导入到私有库引用,故这里直接更改构建脚本<br>脚本更改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;&#x27; &#x27;38a\</span><br><span class="line">    target.build_configurations.each do |config|\</span><br><span class="line">     config.build_settings[&#x27;MACH_O_TYPE&#x27;] = &#x27;staticlib&#x27;\</span><br><span class="line">    end\    </span><br><span class="line">&#x27; Podfile</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>需要安装gsed</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install gnu-sed</span><br><span class="line">alias sed=&#x27;gsed&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="load方法改造"><a href="#load方法改造" class="headerlink" title="load方法改造"></a>load方法改造</h3><p>从原则上来说，我们在开发过程中不应该使用 +load,针对 +load 方法的优化，主要是采用如下几种方案：</p>
+<ul>
+<li>删除不必要的代码； </li>
+<li> +load中代码延迟到 main 之后子线程处理或者首页显示之后； </li>
+<li>业务代码接口懒加载； </li>
+<li> 改为 initialize 中执行，针对 initialize 中处理需要注意的是分类 initialize 会覆盖主类 initialize 以及有子类后 initialize 执行多次的问题，需要使用 dispatch_once 来保证代码只执行一次; <h3 id="删除无用代码"><a href="#删除无用代码" class="headerlink" title="删除无用代码"></a>删除无用代码</h3>删减没有被调用或者已经废弃的方法</li>
+</ul>
+<h2 id="main后优化："><a href="#main后优化：" class="headerlink" title="main后优化："></a>main后优化：</h2><h3 id="三方SDK"><a href="#三方SDK" class="headerlink" title="三方SDK"></a>三方SDK</h3><p>有些三方 SDK 的启动耗时很高，将第三方SDK延后或并发。</p>
+<h3 id="远程配置"><a href="#远程配置" class="headerlink" title="远程配置"></a>远程配置</h3><p>一些远程配置,如社区详情页支持flutter和H5方式展示,通过开关来控制,城市列表信息等,改为并发请求</p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>用 Asset 管理图片而不是直接放在 bundle 里。</p>
+<p>Asset 会在编译期做优化，让加载的时候更快。此外在 Asset 中加载图片是要比 Bundle 快的，因为 UIImage imageNamed 要遍历 Bundle 才能找到图。</p>
+<h3 id="高耗时方法"><a href="#高耗时方法" class="headerlink" title="高耗时方法"></a>高耗时方法</h3><p>Flutter引擎初始化较为耗时,项目里用到的主要是二级页,故将它放在加载第一帧之后再初始化</p>
+<h3 id="首帧渲染"><a href="#首帧渲染" class="headerlink" title="首帧渲染"></a>首帧渲染</h3><h4 id="自动布局"><a href="#自动布局" class="headerlink" title="自动布局"></a>自动布局</h4><p>自动布局改为frame布局方式,以提升布局性能</p>
+<h4 id="默认启动页"><a href="#默认启动页" class="headerlink" title="默认启动页"></a>默认启动页</h4><p>除了第一次装包会显示倒计时启动页,之后每次启动都会显示一个默认启动页,和该默认启动页并发展示的是最终要展示的社区首页,因为社区首页需要网络请求加载数据,之前的方案为了每次冷启后不先展示一片空白影响用户体验,故先展示一个1s的默认启动页.</p>
+<p>这里把默认启动页去掉,对首页数据进行了缓存,初次装包后会对请求的数据进行缓存,之后启动会直接初始化社区首页,并从缓存加载数据</p>
+<h4 id="懒加载其它Tab页"><a href="#懒加载其它Tab页" class="headerlink" title="懒加载其它Tab页"></a>懒加载其它Tab页</h4><p>启动只加载推荐页，发现页、口碑页、排行榜、活动页等，点击时候再加载</p>
+<h1 id="优化效果"><a href="#优化效果" class="headerlink" title="优化效果"></a>优化效果</h1><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th align="center">优化耗时</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>动态库改造</td>
+<td align="center">90ms</td>
+</tr>
+<tr>
+<td>二进制重排</td>
+<td align="center">270ms</td>
+</tr>
+<tr>
+<td>load方法改造</td>
+<td align="center">160ms</td>
+</tr>
+<tr>
+<td>main之后</td>
+<td align="center">1.3s</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/" class="post-title-link" itemprop="url">二进制重排</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-01-16 16:15:40" itemprop="dateCreated datePublished" datetime="2023-01-16T16:15:40+08:00">2023-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-25 18:47:39" itemprop="dateModified" datetime="2023-04-25T18:47:39+08:00">2023-04-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/iOS%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">iOS优化</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="为什么进行二进制重排"><a href="#为什么进行二进制重排" class="headerlink" title="为什么进行二进制重排"></a>为什么进行二进制重排</h1><p>  当用户点击 App 启动的时候，系统会创建进程并为进程申请一块虚拟内存，虚拟内存和物理内存是需要映射的。当进程需要访问的一块虚拟内存页还没有映射对应的物理内存页时，就会触发一次缺页中断 Page In。这个过程中会发生 I/O 操作，将磁盘中的数据读入到物理内存页中。如果读入的是 Text 段的页，还需要解密，并且系统还会对解密后的页进行签名验证。所以，如果在启动过程中频繁的发生 Page In 的话，Page In 引起的 I/O 操作以及解密验证操作等的耗时也是影响很大的。需要注意的是，iOS13 及以后苹果对这个过程进行了优化，Page In 的时候不再需要解密了。</p>
+<p>  Page In 的具体情况我们可以通过 Instruments 中的 System Trace 工具来分析，其中找到 Main Thread 进程，再选择 Summary:Virtual Memory 选项，下面看到的 File Backed Page In 就是对应的缺页中断数据了，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%89%8D.png"></p>
+<p>在启动过程中过多的 Page In 会产生过多的 I/O 操作以及解密验证操作，这些操作的耗时影响也会比较大。针对 Page In 的影响，我们可以通过二进制重排来减少这个过程的耗时。我们知道进程在访问虚拟内存的时候是以页为单位的，而启动过程中的两个方法如果在不同的页，系统就会进行两次缺页中断 Page In 操作来加载这两个页。而如果启动链路上的方法分散在不同的页的话，整个启动的过程就会产生非常多的 Page In 操作。为了能减少系统因缺页中断产生的 Page In 操作，我们需要做的就是把启动链路上所有用到的方法都排在连续的页上，这样系统在加载符号的时候就可以减少相应的内存页数量的访问，从而减少整个启动过程的耗时，如下图所示：<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/launchPage.png"> </p>
+<p>  要实现符号的重排，一是需要我们收集整个启动链路上的方法和函数等符号，二是需要生成对应的 order 文件来配置 ld 中的 Order File 属性。当工程在编译的时候，Xcode 会读取这个 order 文件，在链接过程中会根据这个文件中的符号顺序来生成对应的 MachO。一般业界中收集符号的方案有两种：</p>
+<ul>
+<li> Hook objc_msgSend，只能拿到 OC 以及 swift @objc dynamic 的符号； </li>
+<li> Clang 插桩，能完美拿到 OC、C/C++、Swift、Block 的符号；<br>故这里采用Clang插桩方式来搜集符号,具体实现如下:</li>
+</ul>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><h2 id="1-添加-Build-Setting-设置"><a href="#1-添加-Build-Setting-设置" class="headerlink" title="1. 添加 Build Setting 设置"></a>1. 添加 Build Setting 设置</h2><p>Target -&gt; Build Setting -&gt; Custom Complier Flags -&gt; Other C Flags 添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fsanitize-coverage=func,trace-pc-guard</span><br></pre></td></tr></table></figure>
+<p>Other Swift Flags 添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sanitize-coverage=func -sanitize=undefined</span><br></pre></td></tr></table></figure>
+<p> 项目如果是组件化的话,需要分别对主工程,及各组件进行设置,可以通过脚本在podfile设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 二进制重排设置</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">    target.build_configurations.each do |config|</span><br><span class="line">      if config.name == &#x27;Debug&#x27;</span><br><span class="line">        config.build_settings[&#x27;OTHER_CFLAGS&#x27;] ||= &#x27;$(inherited)&#x27;</span><br><span class="line">        config.build_settings[&#x27;OTHER_CFLAGS&#x27;] &lt;&lt; &#x27; &#x27;</span><br><span class="line">        config.build_settings[&#x27;OTHER_CFLAGS&#x27;] &lt;&lt; &#x27;-fsanitize-coverage=func,trace-pc-guard&#x27;</span><br><span class="line">      end</span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line"># 主工程二进制重排设置</span><br><span class="line">  app_project.native_targets.each do |target|</span><br><span class="line">    if target.name == &#x27;AiWayFashionCar&#x27;</span><br><span class="line">      target.build_configurations.each do |config|</span><br><span class="line">        if config.name == &#x27;Debug&#x27;</span><br><span class="line">          config.build_settings[&#x27;OTHER_CFLAGS&#x27;] ||= &#x27;$(inherited)&#x27;</span><br><span class="line">          config.build_settings[&#x27;OTHER_CFLAGS&#x27;] &lt;&lt; &#x27; &#x27;</span><br><span class="line">          config.build_settings[&#x27;OTHER_CFLAGS&#x27;] &lt;&lt; &#x27;-fsanitize-coverage=func,trace-pc-guard&#x27;</span><br><span class="line">        end</span><br><span class="line">      end</span><br><span class="line">    end</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+<h2 id="2-添加代码"><a href="#2-添加代码" class="headerlink" title="2. 添加代码"></a>2. 添加代码</h2><p> 在启动队列添加代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> DEBUG</span></span><br><span class="line">    AppOrderFiles(^(<span class="built_in">NSString</span> * _Nonnull orderFilePath) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;orderFilePath:%@&quot;</span>,orderFilePath);</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>添加类</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AWLaunchManager</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> AppOrderFiles(<span class="type">void</span>(^completion)(<span class="built_in">NSString</span> *orderFilePath));</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="built_in">NS_ASSUME_NONNULL_END</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;AWLaunchAnalysisLog.h&quot;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AWLaunchManager</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> DEBUG</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;libkern/OSAtomicQueue.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 队列头的数据结构。</span></span><br><span class="line"><span class="keyword">static</span> OSQueueHead queue = OS_ATOMIC_QUEUE_INIT;</span><br><span class="line"><span class="keyword">static</span> <span class="type">BOOL</span> collectFinished = <span class="literal">NO</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">void</span> *pc;</span><br><span class="line">    <span class="type">void</span> *next;</span><br><span class="line">&#125; PCNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The guards are [start, stop).</span></span><br><span class="line"><span class="comment">// This function will be called at least once per DSO and may be called</span></span><br><span class="line"><span class="comment">// more than once with the same values of start/stop.</span></span><br><span class="line"><span class="type">void</span> __sanitizer_cov_trace_pc_guard_init(uint32_t *start,</span><br><span class="line">                                         uint32_t *stop) &#123;</span><br><span class="line">    <span class="keyword">static</span> uint32_t Counter;  <span class="comment">// Counter for the guards.</span></span><br><span class="line">    <span class="keyword">if</span> (start == stop || *start) <span class="keyword">return</span>;  <span class="comment">// Initialize only once.</span></span><br><span class="line">    printf(<span class="string">&quot;INIT: %p %p\n&quot;</span>, start, stop);</span><br><span class="line">    <span class="keyword">for</span> (uint32_t *x = start; x &lt; stop; x++)&#123;</span><br><span class="line">        *x = ++Counter;  <span class="comment">// Guards should start from 1.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This callback is inserted by the compiler on every edge in the</span></span><br><span class="line"><span class="comment">// control flow (some optimizations apply).</span></span><br><span class="line"><span class="comment">// Typically, the compiler will emit the code like this:</span></span><br><span class="line"><span class="comment">//    if(*guard)</span></span><br><span class="line"><span class="comment">//      __sanitizer_cov_trace_pc_guard(guard);</span></span><br><span class="line"><span class="comment">// But for large functions it will emit a simple call:</span></span><br><span class="line"><span class="comment">//    __sanitizer_cov_trace_pc_guard(guard);</span></span><br><span class="line"><span class="comment">// 该回调由编译器插入到</span></span><br><span class="line"><span class="comment">// 控制流（适用一些优化）</span></span><br><span class="line"><span class="comment">// 通常，编译器将发出如下代码：</span></span><br><span class="line"><span class="comment">//    if(*guard)</span></span><br><span class="line"><span class="comment">//      __sanitizer_cov_trace_pc_guard(guard);</span></span><br><span class="line"><span class="comment">// But for large functions it will emit a simple call:</span></span><br><span class="line"><span class="comment">//    __sanitizer_cov_trace_pc_guard(guard);</span></span><br><span class="line"><span class="type">void</span> __sanitizer_cov_trace_pc_guard(uint32_t *guard) &#123;</span><br><span class="line">    <span class="keyword">if</span> (collectFinished || !*guard) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// If you set *guard to 0 this code will not be called again for this edge.</span></span><br><span class="line">    <span class="comment">// Now you can get the PC and do whatever you want:</span></span><br><span class="line">    <span class="comment">//   store it somewhere or symbolize it and print right away.</span></span><br><span class="line">    <span class="comment">// The values of `*guard` are as you set them in</span></span><br><span class="line">    <span class="comment">// __sanitizer_cov_trace_pc_guard_init and so you can make them consecutive</span></span><br><span class="line">    <span class="comment">// and use them to dereference an array or a bit vector.</span></span><br><span class="line">    *guard = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// __builtin_return_address(0)的含义是，得到当前函数返回地址，即此函数被别的函数调用，然后此函数执行完毕后，返回，所谓返回地址就是那时候的地址</span></span><br><span class="line">    <span class="type">void</span> *PC = __builtin_return_address(<span class="number">0</span>);</span><br><span class="line">    PCNode *node = malloc(<span class="keyword">sizeof</span>(PCNode));</span><br><span class="line">    *node = (PCNode)&#123;PC, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    OSAtomicEnqueue(&amp;queue, node, offsetof(PCNode, next));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> AppOrderFiles(<span class="type">void</span>(^completion)(<span class="built_in">NSString</span> *orderFilePath)) &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> DEBUG</span></span><br><span class="line">    collectFinished = <span class="literal">YES</span>;</span><br><span class="line">    __sync_synchronize();</span><br><span class="line">    <span class="built_in">NSString</span> *functionExclude = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;_%s&quot;</span>, __FUNCTION__];</span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">0.01</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="built_in">NSMutableArray</span> &lt;<span class="built_in">NSString</span> *&gt; *functions = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">YES</span>) &#123;</span><br><span class="line">            PCNode *node = OSAtomicDequeue(&amp;queue, offsetof(PCNode, next));</span><br><span class="line">            <span class="keyword">if</span> (node == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Dl_info info = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">            dladdr(node-&gt;pc, &amp;info);</span><br><span class="line">            <span class="keyword">if</span> (info.dli_sname) &#123;</span><br><span class="line">                <span class="built_in">NSString</span> *name = @(info.dli_sname);</span><br><span class="line">                <span class="type">BOOL</span> isObjc = [name hasPrefix:<span class="string">@&quot;+[&quot;</span>] || [name hasPrefix:<span class="string">@&quot;-[&quot;</span>];</span><br><span class="line">                <span class="built_in">NSString</span> *symbolName = isObjc ? name : [<span class="string">@&quot;_&quot;</span> stringByAppendingString:name];</span><br><span class="line">                [functions addObject:symbolName];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (functions.count == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (completion) &#123;</span><br><span class="line">                completion(<span class="literal">nil</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">NSMutableArray</span>&lt;<span class="built_in">NSString</span> *&gt; *calls = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:functions.count];</span><br><span class="line">        <span class="built_in">NSEnumerator</span> *enumerator = [functions reverseObjectEnumerator];</span><br><span class="line">        <span class="built_in">NSString</span> *obj;</span><br><span class="line">        <span class="keyword">while</span> (obj = [enumerator nextObject]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (![calls containsObject:obj]) &#123;</span><br><span class="line">                [calls addObject:obj];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        [calls removeObject:functionExclude];</span><br><span class="line">        <span class="built_in">NSString</span> *result = [calls componentsJoinedByString:<span class="string">@&quot;\n&quot;</span>];</span><br><span class="line"><span class="comment">//        NSLog(@&quot;二进制重排MethodOrder地址:\n%@&quot;, result);</span></span><br><span class="line"><span class="comment">//        printf(&quot;%s&quot;,[result cStringUsingEncoding:NSUTF8StringEncoding]);</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSString</span> *filePath = [<span class="built_in">NSTemporaryDirectory</span>() stringByAppendingPathComponent:<span class="string">@&quot;app.order&quot;</span>];</span><br><span class="line">        <span class="built_in">NSData</span> *fileContents = [result dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">        <span class="type">BOOL</span> success = [[<span class="built_in">NSFileManager</span> defaultManager] createFileAtPath:filePath</span><br><span class="line">                                                               contents:fileContents</span><br><span class="line">                                                             attributes:<span class="literal">nil</span>];</span><br><span class="line">        <span class="keyword">if</span> (success ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (completion) &#123;</span><br><span class="line">                completion(filePath);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-取出-order-file"><a href="#3-取出-order-file" class="headerlink" title="3. 取出 order file"></a>3. 取出 order file</h2><ul>
+<li>在debug模式下编译代码后会在控制台打印 <code>lbfunc.order</code> 的路径</li>
+<li>在控制台搜 “orderFilePath”</li>
+<li><code>Finder</code> 前往路径取出 <code>order file</code></li>
+</ul>
+<h2 id="4-设置-order-file"><a href="#4-设置-order-file" class="headerlink" title="4. 设置 order file"></a>4. 设置 order file</h2><ul>
+<li>把 <code>lbfunc.order</code> 的路径放到主工程根目录</li>
+<li><code>Target -&gt; Build Setting -&gt; Linking -&gt; Order File</code> 设置路径</li>
+</ul>
+<h1 id="查看自己工程的符号顺序"><a href="#查看自己工程的符号顺序" class="headerlink" title="查看自己工程的符号顺序"></a>查看自己工程的符号顺序</h1><p>重排前后我们需要查看自己的符号顺序有没有修改成功 , 这时候就用到了 Link Map .</p>
+<p>Link Map 是编译期间产生的产物 ,  ( ld 的读取二进制文件顺序默认是按照 Compile Sources - GUI 里的顺序 ) ,  它记录了二进制文件的布局 . 通过设置 Write Link Map File 来设置输出与否 , 默认是 no ,在编译完成后通过验证 LinkMap 文件中 #Symbols: 部分符号顺序是否和 order 文件中的符号顺序一致来确定是否配置成功<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/linkMap.png"></p>
+<h1 id="效果对比"><a href="#效果对比" class="headerlink" title="效果对比"></a>效果对比</h1><p>优化前<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%89%8D.png"><br>优化后<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/%E4%BC%98%E5%8C%96%E5%90%8E%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%88%86%E6%9E%90.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/20/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/20/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">一次卡顿优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-20 16:59:46" itemprop="dateCreated datePublished" datetime="2022-08-20T16:59:46+08:00">2022-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-25 18:47:33" itemprop="dateModified" datetime="2023-04-25T18:47:33+08:00">2023-04-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/iOS%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">iOS优化</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="为什么出现卡顿"><a href="#为什么出现卡顿" class="headerlink" title="为什么出现卡顿"></a>为什么出现卡顿</h1><p>屏幕显示图像是需要CPU和GPU结合工作。CPU 负责计算显示内容，包括视图创建、布局计算、图片解码、文本绘制等，CPU 完成计算后，会将计算内容提交给 GPU；GPU 进行变换、合成、渲染，将渲染结果提交到帧缓冲区，当下一次垂直同步信号（简称 V-Sync）到来时，将渲染结果显示到屏幕上。</p>
+<p>UI视图显示到屏幕中的过程：<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E8%A7%86%E5%9B%BE%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B.png"></p>
+<p>在屏幕显示图像前，CPU 和 GPU 需要完成自身的任务，系统会每（1000/60=16.67ms）将UI的变化重新绘制，渲染到屏幕上。如果在16ms内，主线程进行了耗时操作，CPU和GPU没有来得及生产出一帧缓冲，那么这一帧会被丢弃，显示器就会保持不变，继续显示上一帧内容，用户的视觉上就出现了卡顿；因此卡顿产生的原因就是，CPU和GPU没有及时处理好数据。 </p>
+<h1 id="卡顿的检测"><a href="#卡顿的检测" class="headerlink" title="卡顿的检测"></a>卡顿的检测</h1><h2 id="卡顿分析工具"><a href="#卡顿分析工具" class="headerlink" title="卡顿分析工具"></a>卡顿分析工具</h2><p>从Xcode12 开始，Instrument 新增 AnimationHitches 用以检测卡顿,这里用它分析页面卡顿情况<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E5%8D%A1%E9%A1%BF%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7.png"></p>
+<p> 苹果于 20 年的 Session 中提出了 Hitch 的概念，用以衡量滑动时的卡顿情况。Hitch 指的是 卡顿时间（一帧延后出现的时间，ms）/ 总时间（一般是 1 秒），简单来说 卡顿时间比就是一个区间内的总卡顿时间除以它的持续时间。<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E5%8D%A1%E9%A1%BF%E6%AF%94%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6%E8%A7%86%E5%9B%BE.png"></p>
+<ul>
+<li>低于 5 ms/s 说明比较优秀，是最不易被用户察觉到的</li>
+<li>介于 5ms/s  和 10ms/s 之间，说明发生了中等卡顿，用户会察觉到一些中断，但并不严重</li>
+<li>高于 10 ms/s 说明发生了较严重的卡顿，已经影响了用户体验。<br>耗时分析工具</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7.png"></p>
+<p>选中某一次卡顿,结合Instrument - TimeProfile, 就可以定位到具体的函数堆栈                       </p>
+<h2 id="页面卡顿检测"><a href="#页面卡顿检测" class="headerlink" title="页面卡顿检测"></a>页面卡顿检测</h2><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/yemian.png"><br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E9%A1%B5%E9%9D%A2%E5%8D%A1%E9%A1%BF%E6%83%85%E5%86%B5.png"><br>大于16.6ms /s 的为较严重卡顿,大约有33个，有一些卡顿达到了116ms/s。</p>
+<h2 id="某次卡顿分析"><a href="#某次卡顿分析" class="headerlink" title="某次卡顿分析"></a>某次卡顿分析</h2><p>查看某次（116ms/s。)卡顿函数主线程调用栈，查看其使用的时间占比:</p>
+<p><strong>可知耗时操作有：</strong></p>
+<pre><code>AWHomeCommunityTagTableCell的 setModel 
+UIImage+WebPConfig 的 aw_imageNamed方法、        
+UIApplication+AWTAutomaticTracks的 awt_sendEvent 
+NBSLens_iOSANREntity 的 runloopCycleStart 
+AWHomeSearchNetManager 的 getRecommendListWithList 
+map2JsonString 
+...
+</code></pre>
+<h1 id="卡顿原因及优化"><a href="#卡顿原因及优化" class="headerlink" title="卡顿原因及优化"></a>卡顿原因及优化</h1><h2 id="动态卡setModel的耗时："><a href="#动态卡setModel的耗时：" class="headerlink" title="动态卡setModel的耗时："></a><strong>动态卡setModel的耗时：</strong></h2><ol>
+<li>主线程卡片高度计算<br>滑动过程中视图的宽高,文本对象宽高,排版及绘制都有一定耗时</li>
+</ol>
+<p>优化:异步计算视图宽高,富文本对象宽高、排版并缓存到model里,这里富文本处理主要使用的是:<code>YYText</code> ,示例:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 如果你在显示字符串时有性能问题，可以这样开启异步模式：</span><br><span class="line">YYLabel *label = ...</span><br><span class="line">label.displaysAsynchronously = YES;</span><br><span class="line">    </span><br><span class="line">// 如果需要获得最高的性能，你可以在后台线程用 `YYTextLayout` 进行预排版： </span><br><span class="line">YYLabel *label = [<span class="type">YYLabel</span> <span class="type">new</span>];</span><br><span class="line">label.displaysAsynchronously = YES; //开启异步绘制</span><br><span class="line">label.ignoreCommonProperties = YES; //忽略除了 textLayout 之外的其他属性</span><br><span class="line">    </span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">   // 创建属性字符串</span><br><span class="line">   NSMutableAttributedString *text = [[<span class="type">NSMutableAttributedString</span> <span class="type">alloc</span>] <span class="type">initWithString</span>:<span class="string">@&quot;Some Text&quot;];</span></span><br><span class="line"><span class="string">   text.yy_font = [UIFont systemFontOfSize:16];</span></span><br><span class="line"><span class="string">   text.yy_color = [UIColor grayColor];</span></span><br><span class="line"><span class="string">   [text yy_setColor:[UIColor redColor] range:NSMakeRange(0, 4)];</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">   // 创建文本容器</span></span><br><span class="line"><span class="string">   YYTextContainer *container = [YYTextContainer new];</span></span><br><span class="line"><span class="string">   container.size = CGSizeMake(100, CGFLOAT_MAX);</span></span><br><span class="line"><span class="string">   container.maximumNumberOfRows = 0;</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">   // 生成排版结果</span></span><br><span class="line"><span class="string">   YYTextLayout *layout = [YYTextLayout layoutWithContainer:container text:text];</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">   dispatch_async(dispatch_get_main_queue(), ^&#123;</span></span><br><span class="line"><span class="string">       label.size = layout.textBoundingSize;</span></span><br><span class="line"><span class="string">       label.textLayout = layout;</span></span><br><span class="line"><span class="string">   &#125;);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>2、网络请求数据缓存归档<br>数据的IO读写先对是比较耗时的<br>优化:改为异步的方式</p>
+<p>3、不必要的操作<br>整个页面都是通过TableCell实现的,对于顶部的轮播卡,快捷入口等只展示一次的卡片在上下滑动过程中仍会reload,显然是多余的</p>
+<p>优化:只对table的底部会复用的卡片通过UITableViewCell来实现，对于顶部分类tabbar、轮播卡、notice卡和快捷入口卡等只展示一次的卡片通过TableHeader来实现,避免花朵过程中多余的排版</p>
+<p>4、滑动过程中的操作: 移除视图、初始化视图、添加视图<br><strong>优化</strong>：</p>
+<ul>
+<li>视图的初始化：懒加载的方式进行初始化，只初始化一次，如需要重置则可以在重用方法里重置。</li>
+<li>移除视图、添加视图：通过hidden来控制视图的隐藏显示。</li>
+</ul>
+<p>5、xib、masonry、自动布局的使用</p>
+<p>优化：纯代码方式创建cell，frame方式布局</p>
+<p>6、一些对象在反复创建，或在滑动过程中拼接生成<br>如富文本内容、标签等</p>
+<p>优化：将 NSAttributeString的初始化逻辑和数据源逻辑处理放在异步子线程中，然后缓存到model里。 </p>
+<p>7、视图图层复杂<br>原代码用xib实现的卡片,一些自定义视图、活动卡片标签的实现等较为复杂</p>
+<p>优化：尽量减少冗余视图，活动卡片标签改为富文本方式实现</p>
+<p>8、native图片加载，会反复进行IO读取，并在主线程上的图片解码      <img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD.png"><br>项目里用了组件化,通过hook <code>imageNamed</code>,查找相应组件的bundle,然后调YYImage的解码方式在主线程解码图片,这里的问题是在反复滑动过程中,会反复的查找bundle - 解码, 较为耗时</p>
+<p>优化: 对解码过的图片进行LRU缓存，提高读取效率</p>
+<p>9、高分辨率图的加载会造成一定卡顿</p>
+<p>网络图片的加载过程:加载 - 解码 - 渲染 ,除此之外还会有IO读写 ,如果是高分辨率图,也是很耗内存和CPU的</p>
+<p>优化主要有两种方式:</p>
+<table>
+<thead>
+<tr>
+<th align="left">方式</th>
+<th align="left"></th>
+<th align="left">特点</th>
+<th align="left">支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">下采样加载</td>
+<td align="left">根据size加载相应大小的图片,图片源不变</td>
+<td align="left">只针对下载后的图片做的操作<br>不需要图片服务器支持</td>
+<td align="left">SDWebimage支持,<br>YYWebImage需要自己扩展</td>
+</tr>
+<tr>
+<td align="left">按需请求缩略图</td>
+<td align="left">根据size请求相应大小的图片</td>
+<td align="left">节约流量,<br>请求快,<br>降低内存占用<br>需要图片服务器支持</td>
+<td align="left">YYWebImage支持<br>SDWebimage支持</td>
+</tr>
+</tbody></table>
+<p>项目里图片服务器是用的阿里云OSS,支持图片缩放,故采用第二种方案,请求缩略图实例:</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://oss<span class="literal">-console-img-demo-cn-hangzhou</span>.oss<span class="literal">-cn-hangzhou</span>.aliyuncs.com/example.jpg?x<span class="literal">-oss-process</span>=image/resize,h_100,m_lfit</span><br></pre></td></tr></table></figure>
+<p>10、轮播动画<br>icarousel step，轮播图等，滑出界面后，这个头部banner也一直在轮播，有一定耗时</p>
+<p>优化: 在动画卡滑出界面或在离开当前页时，停止动画, 再出现后再开启</p>
+<p>11、JPVideoplayerManager savePlaybackElapsedSeconds:forVideoUrl</p>
+<p>视频播放过程会不断在主线程写文件,较为耗时</p>
+<p>优化: 改为异步方式</p>
+<p>12、离屏渲染问题<br>主要是针对如下场景：阴影、遮罩、组不透明等进行优化</p>
+<p>该页面引起离屏幕渲染的问题主要是绘制阴影：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.customTabbr.layer.shadowOffset = CGSizeMake(5, 0);</span><br><span class="line">self.customTabbr.layer.shadowColor = [UIColor blackColor].CGColor;</span><br><span class="line">self.customTabbr.layer.shadowOpacity = 0.2;//阴影透明度，默认0</span><br><span class="line">self.customTabbr.layer.shadowRadius = 5;//阴影半径，默认3</span><br></pre></td></tr></table></figure>
+<p>优化:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.customTabbr.bounds];</span><br><span class="line">self.customTabbr.layer.shadowPath = path.CGPath;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其它耗时"><a href="#其它耗时" class="headerlink" title="其它耗时"></a><strong>其它耗时</strong></h2><ol>
+<li>UIApplication+AWTAutomaticTracks的 awt_sendEvent<br>这里是通过hook的方式对事件做了自动采集</li>
+</ol>
+<p>这个目前耗时占得比重不是很高，且影响较大,暂时没做优化</p>
+<p>后续优化：出于性能考虑，会把这种自动埋点方式去掉，改成部分hook（比如页面pv）结合手动埋点方式搜集日志信息。</p>
+<p>2、NBSLens_iOSANREntity 的 runloopCycleStart</p>
+<p>这个是一个第三方sdk,用来监测线上crash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[NBSAppAgent setStartOption: NBSOption_Crash | NBSOption_UI];</span><br></pre></td></tr></table></figure>
+<p>优化:替换成性能更好的其它方案(bugly),且它支持卡顿分析<br>3、BaiduMobStat</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[BaiduMobStat defaultStat] startWithAppId:@&quot;&quot;];</span><br></pre></td></tr></table></figure>
+<p>百度热力图，占用耗时根听云sdk时差不多的，如果不是很需要可以考虑去掉<br>主要是用来分析用户行为的</p>
+<p>优化: 后续重构数据采集sdk,一起替换掉</p>
+<p>效果：<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%95%88%E6%9E%9C.png"></p>
+<p>可以看到卡顿比已经下降了很多</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h1><p><a target="_blank" rel="noopener" href="https://github.com/ibireme/YYText">https://github.com/ibireme/YYText</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.apple.com/videos/play/tech-talks/10855/">https://developer.apple.com/videos/play/tech-talks/10855/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/18/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/18/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/" class="post-title-link" itemprop="url">卡顿监控</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-18 12:20:27" itemprop="dateCreated datePublished" datetime="2021-09-18T12:20:27+08:00">2021-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 15:20:15" itemprop="dateModified" datetime="2023-05-24T15:20:15+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/%E6%80%A7%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">性能</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="为什么会卡顿"><a href="#为什么会卡顿" class="headerlink" title="为什么会卡顿"></a>为什么会卡顿</h2><h3 id="图像显示原理"><a href="#图像显示原理" class="headerlink" title="图像显示原理"></a>图像显示原理</h3><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86.png"></p>
+<ul>
+<li>关于CPU和GPU都是通过总线连接起来的，在CPU当中输出的往往是一个位图，再经由总线在合适的时机传递个GPU</li>
+<li>GPU拿到这个位图之后，会对这个位图的图层进行渲染，包括纹理的合成等</li>
+<li>之后会把这个结果放到帧缓冲区中，然后视频控制器会按照VSync信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器，达到最终的显示效果</li>
+</ul>
+<h3 id="CPU和GPU做的事情"><a href="#CPU和GPU做的事情" class="headerlink" title="CPU和GPU做的事情"></a>CPU和GPU做的事情</h3><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/CPU_GPU%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85.png"> </p>
+<ul>
+<li>首先当我们创建一个UIView控件的时候，其中负责显示的CALayer</li>
+<li>CALayer中有一个contents属性，就是我们最终要绘制到屏幕上的一个位图，比如说我们创建了一个UILabel，那么在contents里面就放了一个关于Hello world的文字位图</li>
+<li>然后系统会在一个合适的时机回调给我们一个drawRect:的方法，这个方法中我们可以去绘制一些自定义的内容</li>
+<li>绘制好了之后，最终会由Core Animation这个框架提交给GPU部分的OpenGL渲染管线，进行最终的位图的渲染，包括纹理合成等，然后显示在屏幕上 <h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4></li>
+</ul>
+<p><strong>具体分为四个阶段</strong></p>
+<ul>
+<li><strong>Layout</strong>：这里主要涉及到一些UI布局，文本计算等，例如一个label的size</li>
+<li><strong>Display</strong>：绘制阶段，例如drawRect方法就在这一步骤中</li>
+<li><strong>Prepare</strong>：图片的编解码等操作在此步骤中</li>
+<li><strong>Commit</strong>：提交位图</li>
+</ul>
+<h4 id="GPU渲染管线"><a href="#GPU渲染管线" class="headerlink" title="GPU渲染管线"></a>GPU渲染管线</h4><ul>
+<li><strong>顶点着色</strong></li>
+<li><strong>图元装配</strong></li>
+<li><strong>光栅化</strong></li>
+<li><strong>片段着色</strong></li>
+<li><strong>片段处理</strong></li>
+</ul>
+<h3 id="UI卡顿、掉帧的原因"><a href="#UI卡顿、掉帧的原因" class="headerlink" title="UI卡顿、掉帧的原因"></a>UI卡顿、掉帧的原因</h3><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E6%8E%89%E5%B8%A7%E5%8E%9F%E5%9B%A0.png"> </p>
+<p>在显示器中是固定的频率，比如iOS中是每秒60帧（60FPS），即每帧16.7ms</p>
+<p>从上图中可以看出，每两个VSync信号之间有时间间隔（16.7ms），在这个时间内，CPU主线程计算布局，解码图片，创建视图，绘制文本，计算完成后将内容交给GPU，GPU变换，合成，渲染（详细可学习 OpenGL相关课程），放入帧缓冲区</p>
+<p><strong>假如16.7ms内，CPU和GPU没有来得及生产出一帧缓冲，那么这一帧会被丢弃，显示器就会保持不变，继续显示上一帧内容，这就将导致导致画面卡顿</strong></p>
+<p>所以无论CPU,GPU，哪个消耗时间过长，都会导致在16.7ms内无法生成一帧缓存</p>
+<h2 id="FPS-卡顿监控方案"><a href="#FPS-卡顿监控方案" class="headerlink" title="FPS 卡顿监控方案"></a>FPS 卡顿监控方案</h2><p>FPS 卡顿监控方案的原理是 <strong>通过一段连续的 FPS 计算丢帧率来衡量当前页面绘制的质量</strong>。</p>
+<p>FPS（Frames Per Second）是指画面每秒传输的帧数。每秒帧数越多，所显示的动画就越流畅，一般只要保持 FPS 在 50-60，App 就会有流畅的体验，反之会感觉到卡顿。</p>
+<h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p><code>CADisplayLink</code> 是一个能让我们以和屏幕刷新率相同的频率将内容画到屏幕上的定时器。</p>
+<p>一旦 <code>CADisplayLink</code> 以特定的模式注册到 <code>runloop</code> 之后，每当屏幕需要刷新时，<code>runloop</code> 就会调用 <code>CADisplayLink</code> 绑定的 <code>target</code> 上的 <code>selector</code>，此时 <code>target</code> 可以读取到 <code>CADisplayLink</code> 的每次调用的时间戳，用来准备下一帧显示需要的数据。如：一个视频应用使用时间戳来计算下一帧要显示的视频数据。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>现阶段，常用的 FPS 监控几乎都是基于 <code>CADisplayLink</code> 实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">FPSMonitor</span>: NSObject &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timer: Timer?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> link: CADisplayLink?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> count: UInt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> lastTime: TimeInterval = <span class="number">0</span></span><br><span class="line">    func <span class="title function_">enableMonitor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> link == nil &#123;</span><br><span class="line">            link = CADisplayLink(target: self, selector: #selector(fpsInfoCalculate(_:)))</span><br><span class="line">            link?.add(to: RunLoop.main, forMode: .common)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            link?.isPaused = <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func <span class="title function_">disableMonitor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="type">let</span> <span class="variable">link</span> <span class="operator">=</span> link &#123;</span><br><span class="line">            link.isPaused = <span class="literal">true</span></span><br><span class="line">            link.invalidate()</span><br><span class="line">            self.link = <span class="type">nil</span></span><br><span class="line">            <span class="variable">lastTime</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@objc</span></span><br><span class="line">    func <span class="title function_">fpsInfoCalculate</span><span class="params">(_ link: CADisplayLink)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> lastTime == <span class="number">0</span> &#123;</span><br><span class="line">            lastTime = link.timestamp</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="type">let</span> <span class="variable">delta</span> <span class="operator">=</span> link.timestamp - lastTime</span><br><span class="line">        <span class="keyword">if</span> delta &gt;= <span class="number">1</span> &#123;</span><br><span class="line">            <span class="comment">// 间隔超过 1 秒</span></span><br><span class="line">            lastTime = link.timestamp</span><br><span class="line">            <span class="type">let</span> <span class="variable">fps</span> <span class="operator">=</span> Double(count) / <span class="type">delta</span></span><br><span class="line">            <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">            <span class="type">let</span> <span class="variable">intFps</span> <span class="operator">=</span> Int(fps + <span class="number">0.5</span>)</span><br><span class="line">            print(<span class="string">&quot;帧率：\(intFps)&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>CADisplayLink</code> 实现的 FPS 在生产场景中只有指导意义，不能代表真实的 FPS。因为基于 <code>CADisplayLink</code> 实现的 FPS 无法完全检测出当前 <strong>Core Animation</strong> 的性能情况，只能检测出当前 <strong>RunLoop</strong> 的帧率。</p>
+<h2 id="主线程卡顿监控"><a href="#主线程卡顿监控" class="headerlink" title="主线程卡顿监控"></a>主线程卡顿监控</h2><p>主线程卡顿监控方案的原理是 <strong>通过子线程监控主线程的 RunLoop，判断两个状态区域之间的耗时是否达到一定阈值</strong>。因为主线程绝大部分计算或绘制任务都是以 RunLoop 为单位发生。单次 RunLoop 如果时长超过 16ms，就会导致 UI 体验的卡顿。</p>
+<p>美团的移动端性能监控方案 Hertz 采用的就是这种方式。</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7%E6%B5%81%E7%A8%8B.png"></p>
+<p>首先我们需要了解一下 RunLoop 的原理。</p>
+<h3 id="RunLoop-定义"><a href="#RunLoop-定义" class="headerlink" title="RunLoop 定义"></a>RunLoop 定义</h3><p>RunLoop 是 iOS 事件响应与任务处理最核心的机制。当有持续的异步任务需求时，我们会创建一个独立的生命周期可控的线程。<strong>RunLoop 就是控制线程生命周期并接收事件进行处理的机制</strong>。</p>
+<h3 id="RunLoop-机制"><a href="#RunLoop-机制" class="headerlink" title="RunLoop 机制"></a>RunLoop 机制</h3><p><strong>主线程（有 RunLoop 的线程）几乎所有函数都从以下六个函数之一的函数调起：</strong></p>
+<ol>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION</code><ol>
+<li>CFRunloop is calling out to an abserver callback function</li>
+<li>用于向外部报告 RunLoop 当前状态的改变，框架中很多机制都由 RunLoopObserver 触发，如：CAAnimation</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK</code><ol>
+<li>CFRunloop is calling out to a block</li>
+<li>消息通知、非延迟的 perform、dispatch 调用、block 回调、KVO</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE</code><ol>
+<li>CFRunloop is servicing the main dispatch queue</li>
+<li>执行主队列上的任务</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION</code><ol>
+<li>CFRunloop is calling out to a timer callback function</li>
+<li>基于定时器的延迟的 perfrom，dispatch 调用</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION</code><ol>
+<li>CFRunloop is calling out to a source 0 perform function</li>
+<li>处理 App 内部事件、App自己负责管理（触发），如：<code>UIEvent</code>、<code>CFSocket</code>。普通函数调用，系统调用</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION</code><ol>
+<li>CFRunloop is calling out to a source 1 perform function</li>
+<li>由 RunLoop 和内核管理，Mach port 驱动，如：<code>CFMachPort</code>、<code>CFMessagePort</code><h3 id="RunLoop-运行时"><a href="#RunLoop-运行时" class="headerlink" title="RunLoop 运行时"></a>RunLoop 运行时</h3></li>
+</ol>
+</li>
+</ol>
+<p>如下所示为 <code>CFRunLoop</code> 源码中的核心方法 <code>CFRunLoopRun</code> 简化后的主要逻辑。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int32_t</span> __CFRunLoopRun() &#123;</span><br><span class="line">    <span class="comment">// 1. 通知 Observers：即将进入 RunLoop</span></span><br><span class="line">    __CFRunLoopDoObservers(KCFRunLoopEntry);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">// 2. 通知Observers：即将要处理 timer</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopBeforeTimers);</span><br><span class="line">        <span class="comment">// 3. 通知Observers：即将要处理 source</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopBeforeSources);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理非延迟的主线程调用</span></span><br><span class="line">        __CFRunLoopDoBlocks();</span><br><span class="line">        <span class="comment">// 处理 UIEvent 事件</span></span><br><span class="line">        __CFRunLoopDoSource0();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// GCD dispatch main queue</span></span><br><span class="line">        <span class="built_in">CheckIfExistMessagesInMainDispatchQueue</span>();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 4. 通知 Observers：即将进入休眠等待</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopBeforeWaiting);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 等待内核mach_msg事件</span></span><br><span class="line">        <span class="type">mach_port_t</span> wakeUpPort = <span class="built_in">SleepAndWaitForWakingUpPorts</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// mach_msg_trap</span></span><br><span class="line">        <span class="comment">// 休眠中 Zzz...</span></span><br><span class="line">        <span class="comment">// Received mach_msg, wake up</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 5. 通知 Observers：从休眠等待中醒来</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopAfterWaiting);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (wakeUpPort == timerPort) &#123;</span><br><span class="line">            <span class="comment">// 处理因timer的唤醒</span></span><br><span class="line">            __CFRunLoopDoTimers();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (wakeUpPort == mainDispatchQueuePort) &#123;</span><br><span class="line">            <span class="comment">// 处理异步方法唤醒，如：dispatch_async</span></span><br><span class="line">            __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// UI 刷新，动画显示</span></span><br><span class="line">            __CFRunLoopDoSource1();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 再次确保是否有同步的方法需要调用</span></span><br><span class="line">        __CFRunLoopDoBlocks()</span><br><span class="line">    &#125; <span class="keyword">while</span>(!stop &amp;&amp; !timeout);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 6. 通知 Observers：即将退出runloop</span></span><br><span class="line">    __CFRunLoopDoObservers(CFRunLoopExit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>RunLoop 在运行时一直在向外部报告当前状态的更新，其状态定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">CF_OPTIONS</span><span class="params">(CFOptionFlags, CFRunLoopActivity)</span> </span>&#123;</span><br><span class="line">    kCFRunLoopEntry ,           <span class="comment">// 进入 loop</span></span><br><span class="line">    kCFRunLoopBeforeTimers ,    <span class="comment">// 触发 Timer 回调</span></span><br><span class="line">    kCFRunLoopBeforeSources ,   <span class="comment">// 触发 Source0 回调</span></span><br><span class="line">    kCFRunLoopBeforeWaiting ,   <span class="comment">// 等待 mach_port 消息</span></span><br><span class="line">    kCFRunLoopAfterWaiting ,    <span class="comment">// 接收 mach_port 消息</span></span><br><span class="line">    kCFRunLoopExit ,            <span class="comment">// 退出 loop</span></span><br><span class="line">    kCFRunLoopAllActivities     <span class="comment">// loop 所有状态改变</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从 RunLoop 运行逻辑中，不难发现 NSRunLoop 调用方法主要在于两个状态区间：</p>
+<ul>
+<li><code>kCFRunLoopBeforeSources</code> 和 <code>kCFRunLoopBeforeWaiting</code> 之间</li>
+<li><code>kCFRunLoopAfterWaiting</code> 之后</li>
+<li><em>如果这两个时间内耗时太久而无法进入下一步，可以线程受阻。如果这个线程时主线程，表现出来就是出现了卡顿。</em>*</li>
+</ul>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><p>我们可以通过 <code>CFRunLoopObserverRef</code> 实时获取 <code>NSRunLoop</code> 的状态。具体使用方法如下：</p>
+<p>首先创建一个 <code>CFRunLoopObserverContext</code> 观察者 <code>observer</code>。然后将观察者 <code>observer</code> 添加到主线程 RunLoop 的 <code>kCFRunLoopCommonModes</code> 模式下进行观察。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)registerObserver &#123;</span><br><span class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="type">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">    CFRunLoopObserverRef observer = <span class="built_in">CFRunLoopObserverCreate</span>(kCFAllocatorDefault,</span><br><span class="line">                                                            kCFRunLoopAllActivities,</span><br><span class="line">                                                            YES,</span><br><span class="line">                                                            <span class="number">0</span>,</span><br><span class="line">                                                            &amp;runLoopObserverCallBack,</span><br><span class="line">                                                            &amp;context);</span><br><span class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetMain</span>(), observer, kCFRunLoopCommonModes);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, CFRunLoopActivity activity, <span class="type">void</span> *info)</span> </span>&#123;</span><br><span class="line">    MyClass *object = (__bridge MyClass*)info;</span><br><span class="line">    object-&gt;activity = activity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，创建一个持续的子线程专门用来监控主线程的 RunLoop 状态。为了让计算更精确，需要让子线程更及时的获知主线程 RunLoop 状态变化，<code>dispatch_semaphore_t</code> 是一个不错的选择。另外，卡顿需要覆盖多次连续短时间卡顿和单次长时间卡顿两种情景，所以判定条件也需要做适当优化。优化后的代码实现如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)registerObserver &#123;</span><br><span class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="type">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">    CFRunLoopObserverRef observer = <span class="built_in">CFRunLoopObserverCreate</span>(kCFAllocatorDefault,</span><br><span class="line">                                                            kCFRunLoopAllActivities,</span><br><span class="line">                                                            YES,</span><br><span class="line">                                                            <span class="number">0</span>,</span><br><span class="line">                                                            &amp;runLoopObserverCallBack,</span><br><span class="line">                                                            &amp;context);</span><br><span class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetMain</span>(), observer, kCFRunLoopCommonModes);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建信号</span></span><br><span class="line">    semaphore = <span class="built_in">dispatch_semaphore_create</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在子线程监控时长</span></span><br><span class="line">    <span class="built_in">dispatch_async</span>(<span class="built_in">dispatch_get_global_queue</span>(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="keyword">while</span> (YES) &#123;</span><br><span class="line">            <span class="comment">// 假定连续5次超时50ms认为卡顿(当然也包含了单次超时250ms)</span></span><br><span class="line">            <span class="type">long</span> st = <span class="built_in">dispatch_semaphore_wait</span>(semaphore, <span class="built_in">dispatch_time</span>(DISPATCH_TIME_NOW, <span class="number">50</span>*NSEC_PER_MSEC));</span><br><span class="line">            <span class="keyword">if</span> (st != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (activity == kCFRunLoopBeforeSources || activity==kCFRunLoopAfterWaiting) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (++timeoutCount &lt; <span class="number">5</span>)</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    </span><br><span class="line">                    <span class="built_in">NSLog</span>(@<span class="string">&quot;好像有点儿卡哦&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            timeoutCount = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, CFRunLoopActivity activity, <span class="type">void</span> *info)</span> </span>&#123;</span><br><span class="line">    MyClass *object = (__bridge MyClass*)info;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 记录状态值</span></span><br><span class="line">    object-&gt;activity = activity;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 发送信号</span></span><br><span class="line">    <span class="type">dispatch_semaphore_t</span> semaphore = moniotr-&gt;semaphore;</span><br><span class="line">    <span class="built_in">dispatch_semaphore_signal</span>(semaphore);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 检测到卡顿时应该立刻获取卡顿的方法堆栈信息，并推送至服务端共开发者分析，从而解决卡顿问题。<br>获取堆栈信息:</p>
+<p><strong>直接使用 PLCrashReporter 第三方开源库</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PLCrashReporterConfig *config = [[PLCrashReporterConfig alloc] initWithSignalHandlerType:PLCrashReporterSignalHandlerTypeBSD     </span><br><span class="line">                                                                   symbolicationStrategy:PLCrashReporterSymbolicationStrategyAll];</span><br><span class="line">PLCrashReporter *reporter = [[PLCrashReporter alloc] initWithConfiguration:config];</span><br><span class="line"><span class="comment">// 获取数据</span></span><br><span class="line">NSData *lagData = [reporter generateLiveReport];</span><br><span class="line"><span class="comment">// 转换成 PLCrashReport 对象</span></span><br><span class="line">PLCrashReport *lagReport = [[PLCrashReport alloc] initWithData:lagData error:<span class="literal">NULL</span>];</span><br><span class="line"><span class="comment">// 进行字符串格式化处理</span></span><br><span class="line">NSString *lagReportString = [PLCrashReportTextFormatter stringValueForCrashReport:lagReport withTextFormat:PLCrashReportTextFormatiOS];</span><br><span class="line"><span class="comment">// 将字符串上传服务器</span></span><br><span class="line"><span class="built_in">NSLog</span>(@<span class="string">&quot;lag happen, detail below: \n %@&quot;</span>,lagReportString);</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c35a81c3b9eb">CADisplayLink</a></p>
+<p><a target="_blank" rel="noopener" href="https://opensource.apple.com/source/CF/CF-1152.14/CFRunLoop.c.auto.html">Runloop</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aozhimin/iOS-Monitor-Platform#fps">iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/CPU%20&%20%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/24/CPU%20&%20%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7/" class="post-title-link" itemprop="url">CPU & 内存监控</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-24 20:12:32" itemprop="dateCreated datePublished" datetime="2021-03-24T20:12:32+08:00">2021-03-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 15:17:32" itemprop="dateModified" datetime="2023-05-24T15:17:32+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/%E6%80%A7%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">性能</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>CPU 是移动设备最重要的计算资源，设计糟糕的应用可能会造成 CPU 持续以高负载运行，一方面会导致用户使用过程遭遇卡顿；另一方面也会导致手机发热发烫，电量被快速消耗完，严重影响用户体验。</p>
+<h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p>iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成，XNU（X is not UNIX） 是 Darwin 的内核，一个混合内核，由 Mach 微内核和 BSD 组成。Mach 内核是轻量级的平台，只能完成操作系统最基本的职责，如：进程和线程、虚拟内存管理、任务调度、进程通信和消息传递机制。其他的工作，如文件操作和设备访问，都是由 BSD 层实现。</p>
+<p>事实上，Mach 并不能识别 UNIX 中的所有进程，而是采用一种稍微不同的方式，使用了比进程更轻量级的概念：<strong>任务（Task）</strong>。经典的 UNIX 采用了自上而下的方式：最基本的对象是进程，然后进一步划分为一个或多个线程；Mach 则采用了自底向上的方式：最基本的单元是线程，一个或多个线程包含在一个任务中。</p>
+<blockquote>
+<p><strong>线程：</strong>线程定义了 Mach 中最小的执行单元。线程表示的是底层的机器寄存器状态以及各种调度统计数据，其从设计上提供了调度所需要的大量信息。<br><strong>任务：</strong>任务是一种容器对象，虚拟内存空间和其他资源都是通过这个容器对象管理的。这些资源包括设备和其他句柄。资源进一步被抽象为端口。因此，资源的共享实际上相当于允许对对应端口进行访问。<br>严格来说，Mach 的任务并不是其它操作系统中所谓的进程，因为 Mach 作为一个微内核的操作系统，并没有提供“进程”的逻辑，而只提供了最基本的实现。在 BSD 模型中，这两个概念有一对一的简单映射，每个 BSD 进程（即 OS X 进程）都在底层关联了一个 Mach 任务对象。实现这种映射的方法是指定一个透明的指针 <code>bsd_info</code>，Mach 对 <code>bsd_info</code> 完全无知。Mach 将内核也用任务表示（全局范围称为 <code>kernel_task</code>），尽管该任务没有对应的 PID，但可以想象 PID 为 0。</p>
+</blockquote>
+<p>下图所示为权威著作《OS X Internal: A System Approach》中提供的 Mach OS X 中进程子系统组成的概念图。与 Mac OS X 类似，iOS 的线程技术也是基于 Mach 线程技术实现的。<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/CPU%26%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7/image.png"></p>
+<p> Mach 层中的 <code>thread_basic_info</code> 结构体的定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">struct</span> <span class="title class_">thread_basic_info</span> &#123;</span><br><span class="line">        <span class="type">time_value_t</span>    user_time;      <span class="comment">// 用户运行时长</span></span><br><span class="line">        <span class="type">time_value_t</span>    system_time;    <span class="comment">// 系统运行时长</span></span><br><span class="line">        <span class="type">integer_t</span>       cpu_usage;      <span class="comment">// CPU 使用率</span></span><br><span class="line">        <span class="type">policy_t</span>        policy;         <span class="comment">// 调度策略</span></span><br><span class="line">        <span class="type">integer_t</span>       run_state;      <span class="comment">// 运行状态</span></span><br><span class="line">        <span class="type">integer_t</span>       flags;          <span class="comment">// 各种标记</span></span><br><span class="line">        <span class="type">integer_t</span>       suspend_count;  <span class="comment">// 暂停线程的计数</span></span><br><span class="line">        <span class="type">integer_t</span>       sleep_time;     <span class="comment">// 休眠时间</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="APP-的-CPU-占用率"><a href="#APP-的-CPU-占用率" class="headerlink" title="APP 的 CPU 占用率"></a>APP 的 CPU 占用率</h3><p>对于app使用率的获取，网上的方案还是比较统一的。</p>
+<ol>
+<li>使用task_threads函数，获取当前App行程中所有的线程列表。</li>
+<li>对于第一步中获取的线程列表进行遍历，通过thread_info函数获取每一个非闲置线程的cpu使用率，进行相加。</li>
+<li>使用vm_deallocate函数释放资源。<br>如下所示为 <strong>CPU 占用率</strong> 的代码实现：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">+ (CGFloat)cpuUsageForApp &#123;</span><br><span class="line">    <span class="type">kern_return_t</span> kr;</span><br><span class="line">    <span class="type">thread_array_t</span>         thread_list;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> thread_count;</span><br><span class="line">    <span class="type">thread_info_data_t</span>     thinfo;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> thread_info_count;</span><br><span class="line">    <span class="type">thread_basic_info_t</span> basic_info_th;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get threads in the task</span></span><br><span class="line">    <span class="comment">//  获取当前进程中 线程列表</span></span><br><span class="line">    kr = <span class="built_in">task_threads</span>(<span class="built_in">mach_task_self</span>(), &amp;thread_list, &amp;thread_count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="type">float</span> tot_cpu = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; thread_count; j++) &#123;</span><br><span class="line">        thread_info_count = THREAD_INFO_MAX;</span><br><span class="line">        <span class="comment">//获取每一个线程信息</span></span><br><span class="line">        kr = <span class="built_in">thread_info</span>(thread_list[j], THREAD_BASIC_INFO,</span><br><span class="line">                         (<span class="type">thread_info_t</span>)thinfo, &amp;thread_info_count);</span><br><span class="line">        <span class="keyword">if</span> (kr != KERN_SUCCESS)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        basic_info_th = (<span class="type">thread_basic_info_t</span>)thinfo;</span><br><span class="line">        <span class="keyword">if</span> (!(basic_info_th-&gt;flags &amp; TH_FLAGS_IDLE)) &#123;</span><br><span class="line">            <span class="comment">// cpu_usage : Scaled cpu usage percentage. The scale factor is TH_USAGE_SCALE.</span></span><br><span class="line">            <span class="comment">//宏定义TH_USAGE_SCALE返回CPU处理总频率：</span></span><br><span class="line">            tot_cpu += basic_info_th-&gt;cpu_usage / (<span class="type">float</span>)TH_USAGE_SCALE;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="comment">// for each thread</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注意方法最后要调用 vm_deallocate，防止出现内存泄漏</span></span><br><span class="line">    kr = <span class="built_in">vm_deallocate</span>(<span class="built_in">mach_task_self</span>(), (<span class="type">vm_offset_t</span>)thread_list, thread_count * <span class="built_in">sizeof</span>(<span class="type">thread_t</span>));</span><br><span class="line">    <span class="built_in">assert</span>(kr == KERN_SUCCESS);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> tot_cpu;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><h3 id="相关系统原理-1"><a href="#相关系统原理-1" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p>内存是有限且系统共享的资源，一个程序占用越多，系统和其他程序所能用的就越少。程序启动前都需要先加载到内存中，并且在程序运行过程中的数据操作也会占用一定的内存资源。减少内存占用也能同时减少其对 CPU 时间维度上的消耗，从而使不仅使 App 以及整个系统也都能表现的更好。</p>
+<p>MacOS 和 iOS 都采用了虚拟内存技术来突破物理内存的大小限制，每个进程都有一段由多个大小相同的页（Page）所构成的逻辑地址空间。处理器和内存管理单元（MMU，Memory Management Unit）维护着由逻辑地址到物理地址的 <strong>页面映射表</strong>（简称 <strong>页表</strong>），当程序访问逻辑内存地址时，由 MMU 根据页表将逻辑地址转换为真实的物理地址。在早期的苹果设备中，每个页的大小为 4KB；基于 A7 和 A8 处理器的系统为 64 位程序提供了 16KB 的虚拟内存分页和 4KB 的物理内存分页；在 A9 之后，虚拟内存和物理内存的分页大小都达到了 16KB。</p>
+<p>虚拟内存分页（Virtual Page，VP）有两种类型：</p>
+<ol>
+<li>Clean：指能够被系统清理出内存且在需要时能重新加载的数据，包括：<ol>
+<li>内存映射文件</li>
+<li>Frameworks 中的 __DATA_CONST 部分</li>
+<li>应用的二进制可执行文件</li>
+</ol>
+</li>
+<li>Dirty：指不能被系统回收的内存占用，包括：<ol>
+<li>所有堆上的对象</li>
+<li>图片解码缓冲数据</li>
+<li>Framework 中的 <strong>DATA 和</strong>DATA_DIRTY 部分<br>由于内存容量和读写寿命的限制，iOS 上没有 Disk Swap 机制，取而代之使用 <strong>Compressed Memory</strong> 技术。 Disk Swap 是指在 macOS 以及一些其他桌面操作系统中，当内存可用资源紧张时，系统将内存中的内容写入磁盘中的backing store（Swapping out），并且在需要访问时从磁盘中再读入 RAM（Swapping in）。与大多数 UNIX 系统不同的是，macOS 没有预先分配磁盘中的一部分作为 backing store，而是利用引导分区所有可用的磁盘空间。</li>
+</ol>
+</li>
+</ol>
+<p>苹果最初只是公开了从 OS X Mavericks 开始使用 Compressed Memory 技术，但 iOS 系统也从 iOS 7 开始悄悄地使用。</p>
+<p>Compressed Memory 技术在内存紧张时能够将最近使用过的内存占用压缩至原有大小的一半以下，并且能够在需要时解压复用。它在节省内存的同时提高了系统的响应速度，其特点可以归结为：</p>
+<ul>
+<li>减少了不活跃内存占用</li>
+<li>改善电源效率，通过压缩减少磁盘 IO 带来的损耗</li>
+<li>压缩/解压非常快，能够尽可能减少 CPU 的时间开销</li>
+<li>支持多核操作<br>本质上，Compressed Memory 也是 Dirty Memory。因此，<strong>memory footprint = dirty size + compressed size</strong>，这也是我们需要并且能够尝试去减少的内存占用。</li>
+</ul>
+<h3 id="App-使用的内存"><a href="#App-使用的内存" class="headerlink" title="App 使用的内存"></a>App 使用的内存</h3><p>mach_task_basic_info 结构体存储了 Mach task 的内存使用信息，其中 resident_size 就是应用使用的物理内存大小，virtual_size 是虚拟内存大小。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MACH_TASK_BASIC_INFO     20         <span class="comment">/* always 64-bit basic info */</span></span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">mach_task_basic_info</span> &#123;</span><br><span class="line">        <span class="type">mach_vm_size_t</span>  virtual_size;       <span class="comment">/* virtual memory size (bytes) */</span></span><br><span class="line">        <span class="type">mach_vm_size_t</span>  resident_size;      <span class="comment">/* resident memory size (bytes) */</span></span><br><span class="line">        <span class="type">mach_vm_size_t</span>  resident_size_max;  <span class="comment">/* maximum resident memory size (bytes) */</span></span><br><span class="line">        <span class="type">time_value_t</span>    user_time;          <span class="comment">/* total user run time for</span></span><br><span class="line"><span class="comment">                                               terminated threads */</span></span><br><span class="line">        <span class="type">time_value_t</span>    system_time;        <span class="comment">/* total system run time for</span></span><br><span class="line"><span class="comment">                                               terminated threads */</span></span><br><span class="line">        <span class="type">policy_t</span>        policy;             <span class="comment">/* default policy for new threads */</span></span><br><span class="line">        <span class="type">integer_t</span>       suspend_count;      <span class="comment">/* suspend count for task */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>task_info API 根据指定的 flavor 类型返回 target_task 的信息。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">kern_return_t</span> <span class="title">task_info</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">task_name_t</span> target_task,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">task_flavor_t</span> flavor,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">task_info_t</span> task_info_out,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">mach_msg_type_number_t</span> *task_info_outCnt</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>于是得到获取当前 App Memory 的使用情况</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (NSUInteger)getResidentMemory</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">mach_task_basic_info</span> info;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> count = MACH_TASK_BASIC_INFO_COUNT;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">task_info</span>(<span class="built_in">mach_task_self</span>(), MACH_TASK_BASIC_INFO, (<span class="type">task_info_t</span>)&amp; info, &amp; count);</span><br><span class="line">    <span class="keyword">if</span> (r == KERN_SUCCESS)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> info.resident_size;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将上述代码采集到的 App RAM 的使用值与 Xcode 的 Debug Gauges 的 memory 对比，会发现代码会与 Debug Gauges 显示的值存在差异，有时甚至会差几百 MB，那么究竟怎样才能获取到应用使用的真实内存值呢？<br>我们先来看看 WebKit 源码中是怎样使用的，在 <a target="_blank" rel="noopener" href="https://github.com/WebKit/webkit/blob/52bc6f0a96a062cb0eb76e9a81497183dc87c268/Source/WTF/wtf/cocoa/MemoryFootprintCocoa.cpp">MemoryFootprintCocoa.cpp</a> 文件中，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">memoryFootprint</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">task_vm_info_data_t</span> vmInfo;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> count = TASK_VM_INFO_COUNT;</span><br><span class="line">    <span class="type">kern_return_t</span> result = <span class="built_in">task_info</span>(<span class="built_in">mach_task_self</span>(), TASK_VM_INFO, (<span class="type">task_info_t</span>) &amp;vmInfo, &amp;count);</span><br><span class="line">    <span class="keyword">if</span> (result != KERN_SUCCESS)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;<span class="type">size_t</span>&gt;(vmInfo.phys_footprint);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到代码使用的不是 resident_size，而是 phys_footprint，phys_footprint 同样是 task_info 的成员变量。<br>当我们将获取内存的实现从 resident_size 换成 phys_footprint 时，于是代码获取的内存值就和 Xcode Debug Gauges 一致了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (NSUInteger)getApplicationUsedMemory</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">mach_task_basic_info</span> info;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> count = MACH_TASK_BASIC_INFO_COUNT;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">task_info</span>(<span class="built_in">mach_task_self</span>(), MACH_TASK_BASIC_INFO, (<span class="type">task_info_t</span>)&amp; info, &amp; count);</span><br><span class="line">    <span class="keyword">if</span> (r == KERN_SUCCESS)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> info.phys_footprint;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取设备总内存："><a href="#获取设备总内存：" class="headerlink" title="获取设备总内存："></a>获取设备总内存：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ (NSUInteger)totalMemoryForDevice&#123;</span><br><span class="line">    <span class="keyword">return</span> [NSProcessInfo processInfo].physicalMemory/<span class="number">1024</span>/<span class="number">1024</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/didi/DoKit">DoKit</a><br><a target="_blank" rel="noopener" href="https://github.com/Tencent/GT">GT</a><br><a target="_blank" rel="noopener" href="https://github.com/Shmoopi/iOS-System-Services">iOS-System-Services</a><br><a target="_blank" rel="noopener" href="https://github.com/apple/darwin-xnu/blob/0a798f6738bc1db01281fc08ae024145e84df927/bsd/kern/kern_memorystatus.c">kern_memorystatus</a><br><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/netease-ios-sdk-neteaseapm-technology-share/">NeteaseAPM iOS SDK</a><a target="_blank" rel="noopener" href="https://github.com/zenny-chen/CPU-Dasher-for-iOS">CPU-Dasher-for-iOS</a><br><a target="_blank" rel="noopener" href="https://github.com/everettjf/Yolo/blob/master/HookCppInitilizers/hook_cpp_init.mm">HookCppInitilizers</a><br><a target="_blank" rel="noopener" href="https://everettjf.github.io/2017/01/06/a-method-of-hook-objective-c-load/">a-method-of-hook-objective-c-load</a><br><a target="_blank" rel="noopener" href="https://github.com/maniackk/TimeProfiler/tree/master">TimeProfiler</a><br><a target="_blank" rel="noopener" href="https://github.com/tripleCC/Laboratory/blob/5c084263d79973805649b89d166b50751045e937/AppleSources/objc4-750/runtime/objc-file.mm#L32-L47">objc-file.mm</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/26/Git%E4%B8%8D%E5%B8%B8%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/26/Git%E4%B8%8D%E5%B8%B8%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">Git不常用解决方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-26 13:50:02" itemprop="dateCreated datePublished" datetime="2020-04-26T13:50:02+08:00">2020-04-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 16:16:54" itemprop="dateModified" datetime="2023-05-24T16:16:54+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="上传代码到-github"><a href="#上传代码到-github" class="headerlink" title="上传代码到 github"></a>上传代码到 github</h1><ul>
+<li><p>创建一个新的库上传<br>git init<br>git add README.md<br>git commit -m “first commit”<br>git branch -M main<br>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#109;</a>:shijianmei/hotfixMS.git<br>git push -u origin main</p>
+</li>
+<li><p>上传一个已经存在的库<br>git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#109;">&#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#109;</a>:shijianmei/hotfixMS.git<br>git branch -M main<br>git push -u origin main</p>
+</li>
+</ul>
+<h1 id="rebase和-merge-的区别"><a href="#rebase和-merge-的区别" class="headerlink" title="rebase和 merge 的区别:"></a>rebase和 merge 的区别:</h1><p>git merge 会生成一个新得合并节点，而rebase不会.</p>
+<p>如两个分支:test 和 master</p>
+<pre><code>  D---E test
+
+ /
+</code></pre>
+<p>A—B—C—F master</p>
+<p>使用merge合并：</p>
+<pre><code>  D--------E
+
+ /          \
+</code></pre>
+<p>A—B—C—F—-G   test, master</p>
+<p>而使用rebase则：</p>
+<p>A—B—D—E—C’—F’   test, master</p>
+<p>使用git pull时默认是merge， 加 –rebase参数使其使用rebase方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase   </span><br></pre></td></tr></table></figure>
+<h1 id="git如何忽略已经提交的文件"><a href="#git如何忽略已经提交的文件" class="headerlink" title="git如何忽略已经提交的文件"></a>git如何忽略已经提交的文件</h1><ul>
+<li><p>首先将要忽略的文件或文件夹添加到 .gitignore 文件中</p>
+</li>
+<li><p>停止追踪指定文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 忽略单个文件</span><br><span class="line">git <span class="built_in">rm</span> <span class="literal">-r</span> <span class="literal">--cached</span> [要忽略的文件/文件夹] </span><br><span class="line">// 忽略所有文件</span><br><span class="line">git <span class="built_in">rm</span> <span class="literal">-r</span> <span class="literal">--cached</span> .</span><br></pre></td></tr></table></figure></li>
+<li><p>推送到远程仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot; commet for commit .....&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>然后其他开发人员pull之后, ignore规则就对其生效了.</p>
+</li>
+</ul>
+<h1 id="git怎样删除未监视的文件untracked-files"><a href="#git怎样删除未监视的文件untracked-files" class="headerlink" title="git怎样删除未监视的文件untracked files"></a>git怎样删除未监视的文件untracked files</h1><p>删除 untracked files:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -f</span><br></pre></td></tr></table></figure>
+<p>连 untracked 的目录也一起删掉</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -fd</span><br></pre></td></tr></table></figure>
+
+<h1 id="git上传本地库到远程仓库"><a href="#git上传本地库到远程仓库" class="headerlink" title="git上传本地库到远程仓库"></a>git上传本地库到远程仓库</h1><ol>
+<li><p>拉取远程仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone git@gitlab.alibaba-inc.com:CMedia-iOS/YXWAliyunOSSModule.git</span><br><span class="line">cd YXWAliyunOSSModule</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;add README&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+<li><p>对于已存在的文件夹或仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd existing_folder</span><br><span class="line">git init</span><br><span class="line">git remote add origin git@gitlab.alibaba-inc.com:CMedia-iOS/YXWAliyunOSSModule.git</span><br><span class="line">git add .</span><br><span class="line">git commit</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<h1 id="git-reset-–hard-、git-push-–force之后如何恢复"><a href="#git-reset-–hard-、git-push-–force之后如何恢复" class="headerlink" title="git reset –hard 、git push –force之后如何恢复"></a>git reset –hard 、git push –force之后如何恢复</h1></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.git reflog</span><br><span class="line">2.查看丢失的commit id</span><br><span class="line">3.创建一个新的分支，在新的分支对丢失的commit id执行：</span><br><span class="line">git cherry-pick 901a33f</span><br></pre></td></tr></table></figure>
+<h1 id="如何删除历史记录里的大文件"><a href="#如何删除历史记录里的大文件" class="headerlink" title="如何删除历史记录里的大文件"></a>如何删除历史记录里的大文件</h1><p>适用于从一个git项目中，将体积较大的资源彻底从git中删除，包括历史提交记录。</p>
+<p>如果仅仅在目录中删除一个文件是不够的，只要在提交记录中有这个文件，那么 .git 中就会有这个文件的信息。</p>
+<p>用 filter-branch 可以强制修改提交信息，将某个文件的历史提交痕迹也抹去，就像从来没有过这个文件一样。</p>
+<ol>
+<li>找出需要删除的大文件<br>先执行</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git gc --prune=now</span><br></pre></td></tr></table></figure>
+<p>通过如下命令找到git中保存的大小排名前5的大文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git verify-pack -v .git/objects/pack/pack-*.idx | sort -k 3 -g | tail -5</span><br></pre></td></tr></table></figure>
+<p>可以得到如下信息:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b36ba8c5e4749183794705473321ea312b3a409d blob   46486053 11171997 77887787 1 80c1c35362872c8da6e02117a670902efcdce987</span><br><span class="line">8d1dd2ee60e08b0385fc217a25ea33f36119d694 blob   62475792 7355607 206667227</span><br><span class="line">267a27fef686fbdfbd25210fe36c8a224a5c1a10 blob   81598760 24710676 214022834</span><br><span class="line">abe16d4278121f1a3eacdf3a966326bfb581a741 blob   109294368 28516988 98937450</span><br><span class="line">80c1c35362872c8da6e02117a670902efcdce987 blob   195184864 37268015 40619772</span><br></pre></td></tr></table></figure>
+<p>最后一条就是最大的文件记录，80c1c35362872c8da6e02117a670902efcdce987 是其id，通过如下命令找到该文件的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rev-list --objects --all | grep 80c1c35362872c8da6e02117a670902efcdce987</span><br></pre></td></tr></table></figure>
+<p>可以得到如下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">80c1c35362872c8da6e02117a670902efcdce987 AWU3dControl/Frameworks/UnityFramework.framework</span><br></pre></td></tr></table></figure>
+<p>AWU3dControl/Frameworks/UnityFramework.framework 即为文件的位置，一般情况下这里的文件位置应该为文件夹/文件夹/文件的格式</p>
+<ol start="2">
+<li><p>重写所有commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git filter-branch --tree-filter &quot;rm -f &#123;filepath&#125;&quot; -- --all</span><br></pre></td></tr></table></figure></li>
+<li><p>收尾<br>到这里，历史记录中已经没有该文件了。不过运行 filter-branch 产生的日志还是会对该文件有引用，所以还需要运行以下几条命令，把该文件的引用完全删除：</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -Rf .git/refs/original</span><br><span class="line">rm -Rf .git/logs/</span><br><span class="line">git gc</span><br><span class="line">git prune</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>push<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f --all</span><br></pre></td></tr></table></figure>
+可以通过以下命令查看.git文件夹大小<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -sh .git</span><br></pre></td></tr></table></figure>
+<h1 id="git-stash-clear之后的恢复"><a href="#git-stash-clear之后的恢复" class="headerlink" title="git stash clear之后的恢复"></a>git stash clear之后的恢复</h1></li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git fsck <span class="literal">--lost-found</span>, 找出刚才删除的提交对象和文件对象, 里面是一个一个的 dangling commit commitId</span><br><span class="line">git show commitId一个一个的查看修改的内容, 找到了我们需要恢复的commitId之后</span><br><span class="line">git stash apply commitId直接恢复就可以了</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置命令的别名"><a href="#配置命令的别名" class="headerlink" title="配置命令的别名"></a>配置命令的别名</h1><ul>
+<li>命令行设置 git 的配置 alias<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config <span class="literal">--global</span> alias.&lt;简化的字符&gt; 原始命令</span><br></pre></td></tr></table></figure>
+如: 设置获取状态<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config <span class="literal">--global</span> alias.st status <span class="comment">#代表输入 git st 就代表 git status</span></span><br></pre></td></tr></table></figure></li>
+<li>手动配置 ~/.gitconfig 文件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">      pl = pull</span><br><span class="line">      st = status</span><br><span class="line">      ci = commit</span><br><span class="line">      co = checkout</span><br><span class="line">      br = branch</span><br><span class="line">      df = diff</span><br><span class="line">      unstage = reset HEAD --</span><br><span class="line">      lg = log --color --graph --pretty=format:&#x27;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Cres    et&#x27; --abbrev-commit</span><br><span class="line">      last = log --color --graph --pretty=format:&#x27;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Cr    eset&#x27; --abbrev-commit -1 HEAD</span><br><span class="line">[core]</span><br><span class="line">  excludesfile = /Users/mac/.gitignore_global</span><br><span class="line">  editor = /usr/local/bin/vim</span><br><span class="line">[push]</span><br><span class="line">      default = simple</span><br><span class="line">[difftool &quot;sourcetree&quot;]</span><br><span class="line">  cmd = opendiff \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot;</span><br><span class="line">  path =</span><br><span class="line">[mergetool &quot;sourcetree&quot;]</span><br><span class="line">  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot; -ancestor \&quot;$BASE\&quot; -merge \&quot;$MERGED\&quot;</span><br><span class="line">  trustExitCode = true</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/25/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/25/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Git常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-25 13:33:25" itemprop="dateCreated datePublished" datetime="2020-03-25T13:33:25+08:00">2020-03-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 16:16:59" itemprop="dateModified" datetime="2023-05-24T16:16:59+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我每天使用 Git ，但是很多命令记不住。</p>
+<p>一般来说，日常使用只要记住下图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/git.png"></p>
+<p>git 常用命令.png</p>
+<p>下面是我整理的常用 Git 命令清单。几个专用名词的译名如下。</p>
+<blockquote>
+<p>Workspace：工作区<br>Index / Stage：暂存区<br>Repository：仓库区（或本地仓库）<br>Remote：远程仓库</p>
+</blockquote>
+<h1 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h1><p>在当前目录新建一个Git代码库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+
+<p>新建一个目录，将其初始化为Git代码库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init [project-name]</span><br></pre></td></tr></table></figure>
+
+<p>下载一个项目和它的整个代码历史</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone [url]</span><br></pre></td></tr></table></figure>
+
+<p>下载一个代码，并指定分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone -b [branchName] [url]</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<p>显示当前的Git配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure>
+
+<p>编辑Git配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config -e [--global]</span><br></pre></td></tr></table></figure>
+
+<p>设置提交代码时的用户信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config [--global] user.name &quot;[name]&quot;</span><br></pre></td></tr></table></figure>
+<p>$ git config [–global] user.email “[email address]”</p>
+<h1 id="增加-删除文件"><a href="#增加-删除文件" class="headerlink" title="增加/删除文件"></a>增加/删除文件</h1><p>添加指定文件到暂存区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add [file1] [file2] ...</span><br></pre></td></tr></table></figure>
+
+<p>添加指定目录到暂存区，包括子目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add [dir]</span><br></pre></td></tr></table></figure>
+
+<p>添加当前目录的所有文件到暂存区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
+
+<p>添加每个变化前，都会要求确认</p>
+<p>对于同一个文件的多处变化，可以实现分次提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add -p</span><br></pre></td></tr></table></figure>
+
+<p>删除工作区文件，并且将这次删除放入暂存区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm [file1] [file2] ...</span><br></pre></td></tr></table></figure>
+
+<p>停止追踪指定文件，但该文件会保留在工作区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached [file]</span><br></pre></td></tr></table></figure>
+
+<p>改名文件，并且将这个改名放入暂存区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv [file-original] [file-renamed]</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h1><p>提交暂存区到仓库区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m [message]</span><br></pre></td></tr></table></figure>
+
+<p>提交暂存区的指定文件到仓库区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit [file1] [file2] ... -m [message]</span><br></pre></td></tr></table></figure>
+
+<p>提交工作区自上次commit之后的变化，直接到仓库区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -a</span><br></pre></td></tr></table></figure>
+
+<p>提交时显示所有diff信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -v</span><br></pre></td></tr></table></figure>
+
+<p>使用一次新的commit，替代上一次提交</p>
+<p>如果代码没有任何新变化，则用来改写上一次commit的提交信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend -m [message]</span><br></pre></td></tr></table></figure>
+
+<p>重做上一次commit，并包括指定文件的新变化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend [file1] [file2] ...</span><br></pre></td></tr></table></figure>
+
+<h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><p>列出所有本地分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
+
+<p>列出所有远程分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -r</span><br></pre></td></tr></table></figure>
+
+<p>列出所有本地分支和远程分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br></pre></td></tr></table></figure>
+
+<p>新建一个分支，但依然停留在当前分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch [branch-name]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个分支，并切换到该分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b [branch]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个分支，指向指定commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch [branch] [commit]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个分支，与指定的远程分支建立追踪关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --track [branch] [remote-branch]</span><br></pre></td></tr></table></figure>
+
+<p>切换到远程的一个分支 ,并映射到本地的一个分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b master_network origin/master_network</span><br></pre></td></tr></table></figure>
+
+<p>把本地分支提交到远程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin [branch]</span><br></pre></td></tr></table></figure>
+
+<p>切换到指定分支，并更新工作区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout [branch-name]</span><br></pre></td></tr></table></figure>
+
+<p>切换到上一个分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -</span><br></pre></td></tr></table></figure>
+
+<p>建立追踪关系，在现有分支与指定的远程分支之间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --set-upstream [branch] [remote-branch]</span><br></pre></td></tr></table></figure>
+
+<p>合并指定分支到当前分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge [branch]</span><br></pre></td></tr></table></figure>
+
+<p>选择一个commit，合并进当前分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cherry-pick [commit]</span><br></pre></td></tr></table></figure>
+
+<p>删除分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d [branch-name]</span><br></pre></td></tr></table></figure>
+
+<p>删除远程分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --delete [branch-name]</span><br><span class="line">$ git branch -dr [remote/branch]</span><br></pre></td></tr></table></figure>
+
+<p>更改本地和远程分支的名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -m old_branch new_branch Rename branch locally </span><br><span class="line">git push origin :old_branch Delete the old branch </span><br><span class="line">git push --set-upstream origin new_branch Push the new branch, set local branch to track the new remote</span><br></pre></td></tr></table></figure>
+
+<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h1><p>列出所有tag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag</span><br></pre></td></tr></table></figure>
+
+<p>新建一个tag在当前commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag [tag]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个tag在指定commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag [tag] [commit]</span><br></pre></td></tr></table></figure>
+
+<p>删除本地tag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -d [tag]</span><br></pre></td></tr></table></figure>
+
+<p>删除远程tag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --delete tag &lt;tagname&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看tag信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show [tag]</span><br></pre></td></tr></table></figure>
+
+<p>提交指定tag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] [tag]</span><br></pre></td></tr></table></figure>
+
+<p>提交所有tag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] --tags</span><br></pre></td></tr></table></figure>
+
+<p>新建一个分支，指向某个tag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b [branch] [tag]</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h1><p>显示有变更的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<p>显示当前分支的版本历史</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+<p>显示commit历史，以及每次commit发生变更的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --stat</span><br></pre></td></tr></table></figure>
+
+<p>搜索提交历史，根据关键词</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -S [keyword]</span><br></pre></td></tr></table></figure>
+
+<p>显示某个commit之后的所有变动，每个commit占据一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log [tag] HEAD --pretty=format:%s</span><br></pre></td></tr></table></figure>
+
+<p>显示某个commit之后的所有变动，其”提交说明”必须符合搜索条件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log [tag] HEAD --grep feature</span><br></pre></td></tr></table></figure>
+
+<p>显示某个文件的版本历史，包括文件改名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git log --follow [file]</span><br><span class="line">$ git whatchanged [file]</span><br></pre></td></tr></table></figure>
+
+<p>显示指定文件相关的每一次diff</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -p [file]</span><br></pre></td></tr></table></figure>
+
+<p>显示过去5次提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -5 --pretty --oneline</span><br></pre></td></tr></table></figure>
+
+<p>显示所有提交过的用户，按提交次数排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git shortlog -sn</span><br></pre></td></tr></table></figure>
+
+<p>显示指定文件是什么人在什么时间修改过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git blame [file]</span><br></pre></td></tr></table></figure>
+
+<p>显示暂存区和工作区的差异</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff</span><br></pre></td></tr></table></figure>
+
+<p>显示暂存区和上一个commit的差异</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff --cached [file]</span><br></pre></td></tr></table></figure>
+
+<p>显示工作区与当前分支最新commit之间的差异</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff HEAD</span><br></pre></td></tr></table></figure>
+
+<p>显示两次提交之间的差异</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff [first-branch]...[second-branch]</span><br></pre></td></tr></table></figure>
+
+<p>显示今天你写了多少行代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff --shortstat &quot;@&#123;0 day ago&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>显示某次提交的元数据和内容变化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show [commit]</span><br></pre></td></tr></table></figure>
+
+<p>显示某次提交发生变化的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show --name-only [commit]</span><br></pre></td></tr></table></figure>
+
+<p>显示某次提交时，某个文件的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show [commit]:[filename]</span><br></pre></td></tr></table></figure>
+
+<p>显示当前分支的最近几次提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br></pre></td></tr></table></figure>
+
+<h1 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h1><p>下载远程仓库的所有变动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch [remote]</span><br></pre></td></tr></table></figure>
+
+<p>显示所有远程仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>显示某个远程仓库的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show [remote]</span><br></pre></td></tr></table></figure>
+
+<p>增加一个新的远程仓库，并命名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add [shortname] [url]</span><br></pre></td></tr></table></figure>
+
+<p>取回远程仓库的变化，并与本地分支合并</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull [remote] [branch]</span><br></pre></td></tr></table></figure>
+
+<p>上传本地指定分支到远程仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] [branch]</span><br></pre></td></tr></table></figure>
+
+<p>强行推送当前分支到远程仓库，即使有冲突</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] --force</span><br></pre></td></tr></table></figure>
+
+<p>推送所有分支到远程仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] --all</span><br></pre></td></tr></table></figure>
+
+<h1 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h1><p>恢复暂存区的指定文件到工作区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout [file]</span><br></pre></td></tr></table></figure>
+
+<p>恢复某个commit的指定文件到暂存区和工作区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout [commit] [file]</span><br></pre></td></tr></table></figure>
+
+<p>恢复暂存区的所有文件到工作区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout .</span><br></pre></td></tr></table></figure>
+
+<p>重置暂存区的指定文件，与上一次commit保持一致，但工作区不变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset [file]</span><br></pre></td></tr></table></figure>
+
+<p>重置暂存区与工作区，与上一次commit保持一致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard</span><br></pre></td></tr></table></figure>
+
+<p>重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset [commit]</span><br></pre></td></tr></table></figure>
+
+<p>重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard [commit]</span><br></pre></td></tr></table></figure>
+
+<p>重置当前HEAD为指定commit，但保持暂存区和工作区不变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --keep [commit]</span><br></pre></td></tr></table></figure>
+
+<p>强推到远程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin HEAD --force</span><br></pre></td></tr></table></figure>
+
+<p>新建一个commit，用来撤销指定commit</p>
+<p>后者的所有变化都将被前者抵消，并且应用到当前分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git revert [commit]</span><br></pre></td></tr></table></figure>
+
+<p>暂时将未提交的变化移除，稍后再移入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br><span class="line">$ git stash pop</span><br></pre></td></tr></table></figure>
+
+<p>参考:<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2">https://git-scm.com/book/zh/v2</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shijianmei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shijianmei" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!--
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

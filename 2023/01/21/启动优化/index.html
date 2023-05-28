@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="启动过程： 启动过程以main为界限，分为pre-main和main之后两部分 pre-main加载dyld动态库载入过程，会去装载app使用的动态库。而每一个动态库有它自己的依赖关系，会消耗时间去查找和读取。 rebase&amp;bindingrebase：主要是调整镜像内部的指针，这里使用了ASLR(Address Space Layout Randomization 地址空间布局随机化)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="启动优化">
+<meta property="og:url" content="http://example.com/2023/01/21/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Shi">
+<meta property="og:description" content="启动过程： 启动过程以main为界限，分为pre-main和main之后两部分 pre-main加载dyld动态库载入过程，会去装载app使用的动态库。而每一个动态库有它自己的依赖关系，会消耗时间去查找和读取。 rebase&amp;bindingrebase：主要是调整镜像内部的指针，这里使用了ASLR(Address Space Layout Randomization 地址空间布局随机化)。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%89%87.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%89%8D.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%90%8E.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90.png">
+<meta property="article:published_time" content="2023-01-21T03:17:46.000Z">
+<meta property="article:modified_time" content="2023-04-26T05:48:13.461Z">
+<meta property="article:author" content="Shi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%89%87.png">
+
+<link rel="canonical" href="http://example.com/2023/01/21/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>启动优化 | Shi</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shi</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/shijianmei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/21/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          启动优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-01-21 11:17:46" itemprop="dateCreated datePublished" datetime="2023-01-21T11:17:46+08:00">2023-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-26 13:48:13" itemprop="dateModified" datetime="2023-04-26T13:48:13+08:00">2023-04-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/iOS%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">iOS优化</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h1><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%89%87.png"></p>
+<p>启动过程以main为界限，分为pre-main和main之后两部分</p>
+<h2 id="pre-main"><a href="#pre-main" class="headerlink" title="pre-main"></a>pre-main</h2><h3 id="加载dyld"><a href="#加载dyld" class="headerlink" title="加载dyld"></a>加载dyld</h3><p>动态库载入过程，会去装载app使用的动态库。而每一个动态库有它自己的依赖关系，会消耗时间去查找和读取。</p>
+<h3 id="rebase-amp-binding"><a href="#rebase-amp-binding" class="headerlink" title="rebase&amp;binding"></a>rebase&amp;binding</h3><p>rebase：主要是调整镜像内部的指针，这里使用了ASLR(Address Space Layout Randomization 地址空间布局随机化)。程序每次启动后地址都会随机变化，这样程序里的所有代码地址都需要重新进行计算修复</p>
+<p>binding：修复指向外部的指针。比如app中调用了NSLog函数打印信息，NSLog是系统函数，在程序开始运行的时候app是不知道NSLog函数指针是多少，此时就需要通过dyld_stub_binder技术找到NSLog指针地址进行调用。</p>
+<h3 id="Objc-setup"><a href="#Objc-setup" class="headerlink" title="Objc setup"></a>Objc setup</h3><p>runtime在此处初始化，对class和category进行注 册，selector唯一性判断</p>
+<p>load&amp;constructor&amp;initialize</p>
+<p>调用所有类的load的方法，初始化C&amp;C++的静态化变量，然后调用 constructor 函数</p>
+<h2 id="main之后"><a href="#main之后" class="headerlink" title="main之后"></a>main之后</h2><h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3><p>创建整个app的autoreleasepool，初始化初始window，app界面开始展示</p>
+<h3 id="LifeCyle"><a href="#LifeCyle" class="headerlink" title="LifeCyle"></a>LifeCyle</h3><p>指定rootviewcontroller，调用业务代码，完成各阶段业务</p>
+<h3 id="First-Frame"><a href="#First-Frame" class="headerlink" title="First Frame"></a>First Frame</h3><p>main页面viewDidAppear 完成页面第一帧渲染。至此启动完成。</p>
+<h1 id="分析工具"><a href="#分析工具" class="headerlink" title="分析工具"></a>分析工具</h1><h2 id="pre-main阶段耗时分析"><a href="#pre-main阶段耗时分析" class="headerlink" title="pre-main阶段耗时分析:"></a>pre-main阶段耗时分析:</h2><p>在 Xcode 中 Edit scheme -&gt; Run -&gt; Auguments 将环境变量 DYLD_PRINT_STATISTICS 设为1</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Total pre<span class="literal">-main</span> time: <span class="number">1.2</span> seconds (<span class="number">100.0</span>%)</span><br><span class="line">dylib loading time: <span class="number">297.95</span> milliseconds (<span class="number">23.5</span>%)</span><br><span class="line">rebase/binding time: <span class="number">100.67</span> milliseconds (<span class="number">7.9</span>%)</span><br><span class="line">ObjC setup time: <span class="number">110.68</span> milliseconds (<span class="number">8.7</span>%)</span><br><span class="line">initializer time: <span class="number">758.19</span> milliseconds (<span class="number">59.8</span>%)</span><br><span class="line">slowest intializers :</span><br><span class="line">libSystem.B.dylib : <span class="number">6.71</span> milliseconds (<span class="number">0.5</span>%)</span><br><span class="line">libMainThreadChecker.dylib : <span class="number">40.29</span> milliseconds (<span class="number">3.1</span>%)</span><br><span class="line">GPUToolsCore : <span class="number">37.95</span> milliseconds (<span class="number">2.9</span>%)</span><br><span class="line">libglInterpose.dylib : <span class="number">363.65</span> milliseconds (<span class="number">28.6</span>%)</span><br><span class="line">AiWayFashionCar : <span class="number">471.71</span> milliseconds (<span class="number">37.2</span>%)</span><br></pre></td></tr></table></figure>
+<p>如果将 Edit scheme -&gt; Run &gt; Auguments 将环境变量 DYLD_PRINT_STATISTICS_DETAILS 设为1，则可以更多详细的pre-main阶段的耗时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">total time: 2.1 seconds (100.0%)</span><br><span class="line">total images loaded: 526 (508 from dyld shared cache)</span><br><span class="line">total segments mapped: 66, into 8235 pages</span><br><span class="line">total images loading time: 1.0 seconds (49.3%)</span><br><span class="line">total load time in ObjC: 124.33 milliseconds (5.8%)</span><br><span class="line">total debugger pause time: 753.19 milliseconds (35.7%)</span><br><span class="line">total dtrace DOF registration time: 0.00 milliseconds (0.0%)</span><br><span class="line">total rebase fixups: 830,184</span><br><span class="line">total rebase fixups time: 95.24 milliseconds (4.5%)</span><br><span class="line">total binding fixups: 851,403</span><br><span class="line">total binding fixups time: 523.97 milliseconds (24.8%)</span><br><span class="line">total weak binding fixups time: 3.85 milliseconds (0.1%)</span><br><span class="line">total redo shared cached bindings time: 533.55 milliseconds (25.3%)</span><br><span class="line">total bindings lazily fixed up: 0 of 0</span><br><span class="line">total time in initializers and ObjC +load: 320.90 milliseconds (15.2%)</span><br><span class="line">kscrash libSystem.B.dylib : 6.78 milliseconds (0.3%)</span><br><span class="line">libBacktraceRecording.dylib : 6.98 milliseconds (0.3%)</span><br><span class="line">libobjc.A.dylib : 2.52 milliseconds (0.1%)</span><br><span class="line">libMainThreadChecker.dylib : 40.53 milliseconds (1.9%)</span><br><span class="line">Flutter : 2.95 milliseconds (0.1%)</span><br><span class="line">AiWayFashionCar : 396.86 milliseconds (18.8%)</span><br><span class="line">total symbol trie searches: 1793354</span><br><span class="line">total symbol table binary searches: 0</span><br><span class="line">total images defining weak symbols: 63</span><br><span class="line">total images using weak symbols: 143</span><br></pre></td></tr></table></figure>
+<p>备注:这里要跑低于ios 15.0的系统,才会在控制台打印</p>
+<h2 id="项目里用到的动态库："><a href="#项目里用到的动态库：" class="headerlink" title="项目里用到的动态库："></a>项目里用到的动态库：</h2><p>通过命令 <strong>otool</strong>**-**<strong>L</strong> +  包路径查看使用了的动态库（包含系统库、嵌入的动态库）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -L /Users/mac/Desktop/Debugiphoneos/AiWayFashionCar.app/AiWayFashionCar</span><br></pre></td></tr></table></figure>
+<p>执行结果如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/libbz2.1.0.dylib (compatibility version 1.0.0, current version 1.0.8)</span><br><span class="line">/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1200.3.0)</span><br><span class="line">/usr/lib/libsqlite3.dylib (compatibility version 9.0.0, current version 331.0.0)</span><br><span class="line">/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.11)</span><br><span class="line">@rpath/ATAuthSDK_D.framework/ATAuthSDK_D (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/App.framework/App (compatibility version 0.0.0, current version 0.0.0)</span><br><span class="line">/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox (compatibility version 1.0.0, current version 1000.0.0)</span><br><span class="line">/System/Library/Frameworks/CFNetwork.framework/CFNetwork (compatibility version 1.0.0, current version 1327.0.4)</span><br><span class="line">/System/Library/Frameworks/EventKit.framework/EventKit (compatibility version 1.0.0, current version 1716.2.2)</span><br><span class="line">@rpath/FMDB.framework/FMDB (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/Flutter.framework/Flutter (compatibility version 0.0.0, current version 0.0.0)</span><br><span class="line">/System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1856.105.0)</span><br><span class="line">/System/Library/Frameworks/GLKit.framework/GLKit (compatibility version 1.0.0, current version 126.0.0)</span><br><span class="line">/System/Library/Frameworks/ImageIO.framework/ImageIO (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/System/Library/Frameworks/WebKit.framework/WebKit (compatibility version 1.0.0, current version 612.3.6)</span><br><span class="line">@rpath/flutter_boost.framework/flutter_boost (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/path_provider.framework/path_provider (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/shared_preferences.framework/shared_preferences (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/sqflite.framework/sqflite (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/video_player.framework/video_player (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/wakelock.framework/wakelock (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">@rpath/webview_flutter.framework/webview_flutter (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/System/Library/Frameworks/AppTrackingTransparency.framework/AppTrackingTransparency (compatibility version 1.0.0, current version 1.0.0, weak)</span><br><span class="line">/System/Library/Frameworks/UserNotifications.framework/UserNotifications (compatibility version 1.0.0, current version 1.0.0, weak)</span><br><span class="line">/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)</span><br><span class="line">/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1311.0.0)</span><br><span class="line">/System/Library/Frameworks/AVKit.framework/AVKit (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">/usr/lib/libnetwork.dylib (compatibility version 1.0.0, current version 1.0.0, weak)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里以/System ,/usr开头的是系统动态库</li>
+<li>以@rpath开头的是嵌入动态库,如u3d,flutter及其依赖项使用了动态库<h2 id="查找无用类、分类"><a href="#查找无用类、分类" class="headerlink" title="查找无用类、分类"></a>查找无用类、分类</h2></li>
+</ul>
+<p>代码覆盖率检测等</p>
+<p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/objc/download/">AppCode</a></p>
+<p>基于LLVM插件检测重复代码或者未被使用的代码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/erduoniba/hdcoverage">GitHub - erduoniba/hdcoverage: iOS（swift&amp;oc）自动注入代码覆盖率指令脚本，</a></p>
+<h2 id="查看项目里调了哪些load方法："><a href="#查看项目里调了哪些load方法：" class="headerlink" title="查看项目里调了哪些load方法："></a>查看项目里调了哪些load方法：</h2><p>如果将 Edit scheme -&gt; Run &gt; Auguments 环境变量里加：OBJC_PRINT_LOAD_METHODS 设为YES</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">objc[11939]: LOAD: +[NSMutableDictionary(SwizzlSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[NSNull(SwizzSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[NSString(SwizzlSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[NSMutableString(SwizzlSafe) load]</span><br><span class="line">objc[11939]: LOAD: +[UIControl(AW) load]</span><br><span class="line">objc[11939]: LOAD: +[UIApplication(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[UINavigationController(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[UITouch(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[UIViewController(MemoryLeak) load]</span><br><span class="line">objc[11939]: LOAD: +[NSObject(JPInjecting) load]</span><br><span class="line">objc[11939]: LOAD: +[UITextView(RCSBackWord) load]</span><br><span class="line">objc[11939]: LOAD: +[UITabBarController(ShouldAutorotate) load]</span><br><span class="line">objc[11939]: LOAD: +[UIApplication(BaiduMobStatApplication) load]</span><br><span class="line">objc[11939]: LOAD: +[UICollectionViewLayout(MJRefresh) load]</span><br><span class="line">objc[11939]: LOAD: +[UIScrollView(MJExtension) load]</span><br><span class="line">objc[11939]: LOAD: +[NSObject(MJKeyValue) load]</span><br></pre></td></tr></table></figure>
+<h2 id="缺页异常引起的耗时分析"><a href="#缺页异常引起的耗时分析" class="headerlink" title="缺页异常引起的耗时分析:"></a>缺页异常引起的耗时分析:</h2><p>打开 <code>Instruments</code> , 选择 System Trace<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%89%8D.png"><br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%90%8E.png"></p>
+<h2 id="main之后各阶段耗时分析"><a href="#main之后各阶段耗时分析" class="headerlink" title="main之后各阶段耗时分析:"></a>main之后各阶段耗时分析:</h2><p>打开 <code>Instruments</code> , 选择 App Launch , Time Profile<br><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90.png"><br>结合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSDate* tmpStartData = [NSDate date];    </span><br><span class="line">//耗时函数    </span><br><span class="line">double deltaTime = [[NSDate date] timeIntervalSinceDate:tmpStartData];</span><br><span class="line">NSLog(@&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;unity_launch_costTime = %f ms&quot;, deltaTime*1000);</span><br></pre></td></tr></table></figure>
+<h1 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h1><h2 id="pre-main优化"><a href="#pre-main优化" class="headerlink" title="pre-main优化"></a>pre-main优化</h2><h3 id="二进制重排"><a href="#二进制重排" class="headerlink" title="二进制重排"></a>二进制重排</h3><p>为了能减少系统因缺页中断产生的 Page In 操作，我们需要做的就是把启动链路上所有用到的方法都排在连续的页上，这样系统在加载符号的时候就可以减少相应的内存页数量的访问，从而减少整个启动过程的耗时</p>
+<h3 id="动态库改造"><a href="#动态库改造" class="headerlink" title="动态库改造:"></a>动态库改造:</h3><p>项目用到的嵌入动态库主要是U3d,Flutter及其依赖库</p>
+<p>U3d库因为有要求必须得用动态库,故不作改造</p>
+<p>这里只把flutter依赖库改造为静态库,思路是在flutter模块的podfile里添加:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">    target.build_configurations.each do |config|    </span><br><span class="line">      config.build_settings[&#x27;MACH_O_TYPE&#x27;] = &#x27;staticlib&#x27;</span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>Flutter的引入是通过构建脚本生成动态库,然后导入到私有库引用,故这里直接更改构建脚本<br>脚本更改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;&#x27; &#x27;38a\</span><br><span class="line">    target.build_configurations.each do |config|\</span><br><span class="line">     config.build_settings[&#x27;MACH_O_TYPE&#x27;] = &#x27;staticlib&#x27;\</span><br><span class="line">    end\    </span><br><span class="line">&#x27; Podfile</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>需要安装gsed</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install gnu-sed</span><br><span class="line">alias sed=&#x27;gsed&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="load方法改造"><a href="#load方法改造" class="headerlink" title="load方法改造"></a>load方法改造</h3><p>从原则上来说，我们在开发过程中不应该使用 +load,针对 +load 方法的优化，主要是采用如下几种方案：</p>
+<ul>
+<li>删除不必要的代码； </li>
+<li> +load中代码延迟到 main 之后子线程处理或者首页显示之后； </li>
+<li>业务代码接口懒加载； </li>
+<li> 改为 initialize 中执行，针对 initialize 中处理需要注意的是分类 initialize 会覆盖主类 initialize 以及有子类后 initialize 执行多次的问题，需要使用 dispatch_once 来保证代码只执行一次; <h3 id="删除无用代码"><a href="#删除无用代码" class="headerlink" title="删除无用代码"></a>删除无用代码</h3>删减没有被调用或者已经废弃的方法</li>
+</ul>
+<h2 id="main后优化："><a href="#main后优化：" class="headerlink" title="main后优化："></a>main后优化：</h2><h3 id="三方SDK"><a href="#三方SDK" class="headerlink" title="三方SDK"></a>三方SDK</h3><p>有些三方 SDK 的启动耗时很高，将第三方SDK延后或并发。</p>
+<h3 id="远程配置"><a href="#远程配置" class="headerlink" title="远程配置"></a>远程配置</h3><p>一些远程配置,如社区详情页支持flutter和H5方式展示,通过开关来控制,城市列表信息等,改为并发请求</p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>用 Asset 管理图片而不是直接放在 bundle 里。</p>
+<p>Asset 会在编译期做优化，让加载的时候更快。此外在 Asset 中加载图片是要比 Bundle 快的，因为 UIImage imageNamed 要遍历 Bundle 才能找到图。</p>
+<h3 id="高耗时方法"><a href="#高耗时方法" class="headerlink" title="高耗时方法"></a>高耗时方法</h3><p>Flutter引擎初始化较为耗时,项目里用到的主要是二级页,故将它放在加载第一帧之后再初始化</p>
+<h3 id="首帧渲染"><a href="#首帧渲染" class="headerlink" title="首帧渲染"></a>首帧渲染</h3><h4 id="自动布局"><a href="#自动布局" class="headerlink" title="自动布局"></a>自动布局</h4><p>自动布局改为frame布局方式,以提升布局性能</p>
+<h4 id="默认启动页"><a href="#默认启动页" class="headerlink" title="默认启动页"></a>默认启动页</h4><p>除了第一次装包会显示倒计时启动页,之后每次启动都会显示一个默认启动页,和该默认启动页并发展示的是最终要展示的社区首页,因为社区首页需要网络请求加载数据,之前的方案为了每次冷启后不先展示一片空白影响用户体验,故先展示一个1s的默认启动页.</p>
+<p>这里把默认启动页去掉,对首页数据进行了缓存,初次装包后会对请求的数据进行缓存,之后启动会直接初始化社区首页,并从缓存加载数据</p>
+<h4 id="懒加载其它Tab页"><a href="#懒加载其它Tab页" class="headerlink" title="懒加载其它Tab页"></a>懒加载其它Tab页</h4><p>启动只加载推荐页，发现页、口碑页、排行榜、活动页等，点击时候再加载</p>
+<h1 id="优化效果"><a href="#优化效果" class="headerlink" title="优化效果"></a>优化效果</h1><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th align="center">优化耗时</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>动态库改造</td>
+<td align="center">90ms</td>
+</tr>
+<tr>
+<td>二进制重排</td>
+<td align="center">270ms</td>
+</tr>
+<tr>
+<td>load方法改造</td>
+<td align="center">160ms</td>
+</tr>
+<tr>
+<td>main之后</td>
+<td align="center">1.3s</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92/" rel="prev" title="二进制重排">
+      <i class="fa fa-chevron-left"></i> 二进制重排
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/25/iOS%E6%8E%A5%E5%85%A5Flutter/" rel="next" title="iOS接入Flutter">
+      iOS接入Flutter <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">启动过程：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pre-main"><span class="nav-number">1.1.</span> <span class="nav-text">pre-main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BDdyld"><span class="nav-number">1.1.1.</span> <span class="nav-text">加载dyld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rebase-amp-binding"><span class="nav-number">1.1.2.</span> <span class="nav-text">rebase&amp;binding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Objc-setup"><span class="nav-number">1.1.3.</span> <span class="nav-text">Objc setup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main%E4%B9%8B%E5%90%8E"><span class="nav-number">1.2.</span> <span class="nav-text">main之后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">main函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LifeCyle"><span class="nav-number">1.2.2.</span> <span class="nav-text">LifeCyle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Frame"><span class="nav-number">1.2.3.</span> <span class="nav-text">First Frame</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">分析工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pre-main%E9%98%B6%E6%AE%B5%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90"><span class="nav-number">2.1.</span> <span class="nav-text">pre-main阶段耗时分析:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%87%8C%E7%94%A8%E5%88%B0%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">项目里用到的动态库：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%97%A0%E7%94%A8%E7%B1%BB%E3%80%81%E5%88%86%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">查找无用类、分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%A1%B9%E7%9B%AE%E9%87%8C%E8%B0%83%E4%BA%86%E5%93%AA%E4%BA%9Bload%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">查看项目里调了哪些load方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%A1%B5%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90"><span class="nav-number">2.5.</span> <span class="nav-text">缺页异常引起的耗时分析:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main%E4%B9%8B%E5%90%8E%E5%90%84%E9%98%B6%E6%AE%B5%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90"><span class="nav-number">2.6.</span> <span class="nav-text">main之后各阶段耗时分析:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">优化思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pre-main%E4%BC%98%E5%8C%96"><span class="nav-number">3.1.</span> <span class="nav-text">pre-main优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92"><span class="nav-number">3.1.1.</span> <span class="nav-text">二进制重排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%BA%93%E6%94%B9%E9%80%A0"><span class="nav-number">3.1.2.</span> <span class="nav-text">动态库改造:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load%E6%96%B9%E6%B3%95%E6%94%B9%E9%80%A0"><span class="nav-number">3.1.3.</span> <span class="nav-text">load方法改造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%97%A0%E7%94%A8%E4%BB%A3%E7%A0%81"><span class="nav-number">3.1.4.</span> <span class="nav-text">删除无用代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main%E5%90%8E%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">main后优化：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%96%B9SDK"><span class="nav-number">3.2.1.</span> <span class="nav-text">三方SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.2.</span> <span class="nav-text">远程配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87"><span class="nav-number">3.2.3.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E8%80%97%E6%97%B6%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.4.</span> <span class="nav-text">高耗时方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E5%B8%A7%E6%B8%B2%E6%9F%93"><span class="nav-number">3.2.5.</span> <span class="nav-text">首帧渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">自动布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%90%AF%E5%8A%A8%E9%A1%B5"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">默认启动页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%87%92%E5%8A%A0%E8%BD%BD%E5%85%B6%E5%AE%83Tab%E9%A1%B5"><span class="nav-number">3.2.5.3.</span> <span class="nav-text">懒加载其它Tab页</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">优化效果</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shijianmei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shijianmei" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!--
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

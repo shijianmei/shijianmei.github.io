@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="为什么要搭建热修复平台随着公司的快速发展，需求的快速增加，App迭代也越来越频繁，如果移动应用出现问题，不仅仅影响用户体验，还会影响公司口碑，甚至可能造成资损。需要快速修复线上问题，对比常规的开发流程而言，热修复更加灵活方便，优势很多： ● 无需重新发版，实时高效修复bug；● 用户无感知修复，无需下载新的版本，代价小；● 修复成功率高，能把损失降到最低；● 因此热修平台愈加重要，需要搭建一个高效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="热修复设计">
+<meta property="og:url" content="http://example.com/2023/05/06/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Shi">
+<meta property="og:description" content="为什么要搭建热修复平台随着公司的快速发展，需求的快速增加，App迭代也越来越频繁，如果移动应用出现问题，不仅仅影响用户体验，还会影响公司口碑，甚至可能造成资损。需要快速修复线上问题，对比常规的开发流程而言，热修复更加灵活方便，优势很多： ● 无需重新发版，实时高效修复bug；● 用户无感知修复，无需下载新的版本，代价小；● 修复成功率高，能把损失降到最低；● 因此热修平台愈加重要，需要搭建一个高效">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E9%93%BE%E8%B7%AF%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E6%8B%89%E5%8C%85%E6%97%B6%E5%BA%8F%E5%9B%BE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E4%BF%AE%E5%A4%8D%E5%8C%85%E6%B7%BB%E5%8A%A0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E4%BF%AE%E5%A4%8D%E5%8C%85%E7%AE%A1%E7%90%86.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%B6%E5%BA%8F%E5%9B%BE.png">
+<meta property="article:published_time" content="2023-05-06T11:04:10.000Z">
+<meta property="article:modified_time" content="2023-05-18T04:25:29.544Z">
+<meta property="article:author" content="Shi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E9%93%BE%E8%B7%AF%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+
+<link rel="canonical" href="http://example.com/2023/05/06/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>热修复设计 | Shi</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shi</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/shijianmei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/06/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          热修复设计
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-06 19:04:10" itemprop="dateCreated datePublished" datetime="2023-05-06T19:04:10+08:00">2023-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-18 12:25:29" itemprop="dateModified" datetime="2023-05-18T12:25:29+08:00">2023-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">系统设计</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="为什么要搭建热修复平台"><a href="#为什么要搭建热修复平台" class="headerlink" title="为什么要搭建热修复平台"></a>为什么要搭建热修复平台</h1><p>随着公司的快速发展，需求的快速增加，App迭代也越来越频繁，如果移动应用出现问题，不仅仅影响用户体验，还会影响公司口碑，甚至可能造成资损。需要快速修复线上问题，对比常规的开发流程而言，热修复更加灵活方便，优势很多：</p>
+<p>● 无需重新发版，实时高效修复bug；<br>● 用户无感知修复，无需下载新的版本，代价小；<br>● 修复成功率高，能把损失降到最低；<br>● 因此热修平台愈加重要，需要搭建一个高效，好用且安全的热修复平台。</p>
+<h1 id="具体设计："><a href="#具体设计：" class="headerlink" title="具体设计："></a>具体设计：</h1><h2 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h2><p>链路流程图:</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E9%93%BE%E8%B7%AF%E6%B5%81%E7%A8%8B%E5%9B%BE.png"></p>
+<h2 id="时序图："><a href="#时序图：" class="headerlink" title="时序图："></a>时序图：</h2><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E6%8B%89%E5%8C%85%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
+<h2 id="各平台要做的事情"><a href="#各平台要做的事情" class="headerlink" title="各平台要做的事情"></a>各平台要做的事情</h2><h3 id="热修复管理平台："><a href="#热修复管理平台：" class="headerlink" title="热修复管理平台："></a>热修复管理平台：</h3><p>热修复管理系统分前后端，主要支持补丁的上传、发布、停止，用户角色的创建及管理，以及供客户端调的接口：获取热修复包、是否存在最新修复包两个接口</p>
+<h4 id="上传补丁："><a href="#上传补丁：" class="headerlink" title="上传补丁："></a>上传补丁：</h4><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E4%BF%AE%E5%A4%8D%E5%8C%85%E6%B7%BB%E5%8A%A0.png"></p>
+<p>上传补丁到服务端和app包的某一个版本号一一对应</p>
+<h4 id="管理补丁："><a href="#管理补丁：" class="headerlink" title="管理补丁："></a>管理补丁：</h4><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E4%BF%AE%E5%A4%8D%E5%8C%85%E7%AE%A1%E7%90%86.png"></p>
+<p>补丁状态说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">已就绪</td>
+<td align="left">补丁上传成功，等待操作。</td>
+</tr>
+<tr>
+<td align="left">灰度中</td>
+<td align="left">补丁正在进行部分设备灰度发布中。</td>
+</tr>
+<tr>
+<td align="left">已发布</td>
+<td align="left">补丁已全量发布至所有设备。</td>
+</tr>
+<tr>
+<td align="left">已停止</td>
+<td align="left">补丁发布行为已暂停，服务端停止下发补丁，客户端已经下载的补丁继续生效。</td>
+</tr>
+</tbody></table>
+<h4 id="发布补丁："><a href="#发布补丁：" class="headerlink" title="发布补丁："></a>发布补丁：</h4><p>发布之后，app端即可拉去到有效的补丁</p>
+<h4 id="停止发布："><a href="#停止发布：" class="headerlink" title="停止发布："></a>停止发布：</h4><p>在补丁列表的操作里点终止操作，不在下发到客户端</p>
+<h4 id="数据相关："><a href="#数据相关：" class="headerlink" title="数据相关："></a>数据相关：</h4><table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">通知设备</td>
+<td align="left">本次补丁下发包含的所有设备数。</td>
+</tr>
+<tr>
+<td align="left">下载成功设备</td>
+<td align="left">补丁已下载成功的所有设备数。</td>
+</tr>
+<tr>
+<td align="left">加载成功设备</td>
+<td align="left">补丁已加载成功的所有设备数。</td>
+</tr>
+<tr>
+<td align="left">主动清除成功数</td>
+<td align="left">客户端调用清除补丁接口或者控制台操作全部回滚后补丁清除成功的设备数。</td>
+</tr>
+</tbody></table>
+<h3 id="客户端库："><a href="#客户端库：" class="headerlink" title="客户端库："></a>客户端库：</h3><p>基于 MangoFix 封装, 实现了拉修复包，缓存，修复等功能。</p>
+<p>设计流程图:</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E7%83%AD%E4%BF%AE%E5%A4%8D%E8%AE%BE%E8%AE%A1/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
+<p>基于补丁是从服务端拉取的,有一定的延时,为了不影响启动时间及代码修复,同时也为了减少每次冷启重复的请求，故加入缓存机制。</p>
+<h3 id="辅助工具"><a href="#辅助工具" class="headerlink" title="辅助工具"></a>辅助工具</h3><p>在修复完线上问题后需要制作补丁包上传到服务端，该工具为此提供了便利</p>
+<ul>
+<li><p>补丁脚本生成功能：<br>补丁脚本是类oc语法，与OC语法还是有些差异，通过该工具生成补丁脚本，可节约时间，减少错误</p>
+</li>
+<li><p>补丁包生成功能：<br>最终上传到服务器的补丁包是基于补丁脚本通过AES加密生成一个二进制文件流，通过导出包功能最终生成上传到服务端的补丁包</p>
+</li>
+</ul>
+<h2 id="发布策略："><a href="#发布策略：" class="headerlink" title="发布策略："></a>发布策略：</h2><p>全量发布：</p>
+<pre><code>全量发布，不用解释，补丁对应版本App所有用户都可拉取补丁
+</code></pre>
+<p>灰度发布：</p>
+<pre><code>灰度下发支持按人数灰度 与 按比例灰度，按照人数灰度相对简单，因此这里只说下按比例灰度，灰度如果按照总人数的百分比进行下发，有可能会下发到不活跃用户的设备上，让百分比下发失去意义。目前一个简单的方式是实现哈希碰撞算法，概率可调，当App端请求补丁时，根据设备的唯一标识进行碰撞，落到概率区间内则下发补丁。
+</code></pre>
+<p>条件发布：</p>
+<pre><code>需要在小范围内进行验证，比如特定某个系统版本或者特定某个用户；在验证通过后再进行全网用户的下发，这中场景下可以使用条件下发。
+</code></pre>
+<h2 id="传输安全："><a href="#传输安全：" class="headerlink" title="传输安全："></a>传输安全：</h2><p>对补丁进行AES加密，生成二进制文件</p>
+<h2 id="监控："><a href="#监控：" class="headerlink" title="监控："></a>监控：</h2><pre><code>修复情况（crash监控等）
+拉取补丁设备数
+</code></pre>
+<h1 id="完成度："><a href="#完成度：" class="headerlink" title="完成度："></a>完成度：</h1><ul>
+<li><input checked="" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://github.com/shijianmei/hotfixMS">热修复管理系统具前端</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://git@github.com:shijianmei/hotfixServer.git">热修复管理系统具前端后端</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://git@github.com:shijianmei/PatchGenerater.git">热修复脚本生成工具</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a target="_blank" rel="noopener" href="https://github.com/shijianmei/ProblemTerminator">iOS端热修复库封装</a></li>
+<li><input disabled="" type="checkbox"> 条件发布、灰度发布</li>
+<li><input disabled="" type="checkbox"> 数据指标统计（补丁读取耗时、补丁读取成功设备数）</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/25/iOS%E6%8E%A5%E5%85%A5Flutter/" rel="prev" title="iOS接入Flutter">
+      <i class="fa fa-chevron-left"></i> iOS接入Flutter
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%90%AD%E5%BB%BA%E7%83%AD%E4%BF%AE%E5%A4%8D%E5%B9%B3%E5%8F%B0"><span class="nav-number">1.</span> <span class="nav-text">为什么要搭建热修复平台</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E8%AE%BE%E8%AE%A1%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">具体设计：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">流程图：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%9B%BE%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">时序图：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E5%B9%B3%E5%8F%B0%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-number">2.3.</span> <span class="nav-text">各平台要做的事情</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E4%BF%AE%E5%A4%8D%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0%EF%BC%9A"><span class="nav-number">2.3.1.</span> <span class="nav-text">热修复管理平台：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E8%A1%A5%E4%B8%81%EF%BC%9A"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">上传补丁：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E8%A1%A5%E4%B8%81%EF%BC%9A"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">管理补丁：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%A1%A5%E4%B8%81%EF%BC%9A"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">发布补丁：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E5%8F%91%E5%B8%83%EF%BC%9A"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">停止发布：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%EF%BC%9A"><span class="nav-number">2.3.1.5.</span> <span class="nav-text">数据相关：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%93%EF%BC%9A"><span class="nav-number">2.3.2.</span> <span class="nav-text">客户端库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.3.</span> <span class="nav-text">辅助工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">发布策略：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">传输安全：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%EF%BC%9A"><span class="nav-number">2.6.</span> <span class="nav-text">监控：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E5%BA%A6%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">完成度：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shijianmei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shijianmei" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        <!--
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
