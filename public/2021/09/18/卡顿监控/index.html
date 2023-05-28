@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="为什么会卡顿图像显示原理  关于CPU和GPU都是通过总线连接起来的，在CPU当中输出的往往是一个位图，再经由总线在合适的时机传递个GPU GPU拿到这个位图之后，会对这个位图的图层进行渲染，包括纹理的合成等 之后会把这个结果放到帧缓冲区中，然后视频控制器会按照VSync信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器，达到最终的显示效果  CPU和GPU做的事情   首先当我们创建一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卡顿监控">
+<meta property="og:url" content="http://example.com/2021/09/18/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/index.html">
+<meta property="og:site_name" content="Shi">
+<meta property="og:description" content="为什么会卡顿图像显示原理  关于CPU和GPU都是通过总线连接起来的，在CPU当中输出的往往是一个位图，再经由总线在合适的时机传递个GPU GPU拿到这个位图之后，会对这个位图的图层进行渲染，包括纹理的合成等 之后会把这个结果放到帧缓冲区中，然后视频控制器会按照VSync信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器，达到最终的显示效果  CPU和GPU做的事情   首先当我们创建一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/CPU_GPU%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E6%8E%89%E5%B8%A7%E5%8E%9F%E5%9B%A0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7%E6%B5%81%E7%A8%8B.png">
+<meta property="article:published_time" content="2021-09-18T04:20:27.000Z">
+<meta property="article:modified_time" content="2023-05-24T07:20:15.470Z">
+<meta property="article:author" content="Shi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86.png">
+
+<link rel="canonical" href="http://example.com/2021/09/18/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>卡顿监控 | Shi</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shi</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/shijianmei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/18/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          卡顿监控
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-18 12:20:27" itemprop="dateCreated datePublished" datetime="2021-09-18T12:20:27+08:00">2021-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 15:20:15" itemprop="dateModified" datetime="2023-05-24T15:20:15+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/source/categories/%E6%80%A7%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">性能</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="为什么会卡顿"><a href="#为什么会卡顿" class="headerlink" title="为什么会卡顿"></a>为什么会卡顿</h2><h3 id="图像显示原理"><a href="#图像显示原理" class="headerlink" title="图像显示原理"></a>图像显示原理</h3><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86.png"></p>
+<ul>
+<li>关于CPU和GPU都是通过总线连接起来的，在CPU当中输出的往往是一个位图，再经由总线在合适的时机传递个GPU</li>
+<li>GPU拿到这个位图之后，会对这个位图的图层进行渲染，包括纹理的合成等</li>
+<li>之后会把这个结果放到帧缓冲区中，然后视频控制器会按照VSync信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器，达到最终的显示效果</li>
+</ul>
+<h3 id="CPU和GPU做的事情"><a href="#CPU和GPU做的事情" class="headerlink" title="CPU和GPU做的事情"></a>CPU和GPU做的事情</h3><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/CPU_GPU%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85.png"> </p>
+<ul>
+<li>首先当我们创建一个UIView控件的时候，其中负责显示的CALayer</li>
+<li>CALayer中有一个contents属性，就是我们最终要绘制到屏幕上的一个位图，比如说我们创建了一个UILabel，那么在contents里面就放了一个关于Hello world的文字位图</li>
+<li>然后系统会在一个合适的时机回调给我们一个drawRect:的方法，这个方法中我们可以去绘制一些自定义的内容</li>
+<li>绘制好了之后，最终会由Core Animation这个框架提交给GPU部分的OpenGL渲染管线，进行最终的位图的渲染，包括纹理合成等，然后显示在屏幕上 <h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4></li>
+</ul>
+<p><strong>具体分为四个阶段</strong></p>
+<ul>
+<li><strong>Layout</strong>：这里主要涉及到一些UI布局，文本计算等，例如一个label的size</li>
+<li><strong>Display</strong>：绘制阶段，例如drawRect方法就在这一步骤中</li>
+<li><strong>Prepare</strong>：图片的编解码等操作在此步骤中</li>
+<li><strong>Commit</strong>：提交位图</li>
+</ul>
+<h4 id="GPU渲染管线"><a href="#GPU渲染管线" class="headerlink" title="GPU渲染管线"></a>GPU渲染管线</h4><ul>
+<li><strong>顶点着色</strong></li>
+<li><strong>图元装配</strong></li>
+<li><strong>光栅化</strong></li>
+<li><strong>片段着色</strong></li>
+<li><strong>片段处理</strong></li>
+</ul>
+<h3 id="UI卡顿、掉帧的原因"><a href="#UI卡顿、掉帧的原因" class="headerlink" title="UI卡顿、掉帧的原因"></a>UI卡顿、掉帧的原因</h3><p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E6%8E%89%E5%B8%A7%E5%8E%9F%E5%9B%A0.png"> </p>
+<p>在显示器中是固定的频率，比如iOS中是每秒60帧（60FPS），即每帧16.7ms</p>
+<p>从上图中可以看出，每两个VSync信号之间有时间间隔（16.7ms），在这个时间内，CPU主线程计算布局，解码图片，创建视图，绘制文本，计算完成后将内容交给GPU，GPU变换，合成，渲染（详细可学习 OpenGL相关课程），放入帧缓冲区</p>
+<p><strong>假如16.7ms内，CPU和GPU没有来得及生产出一帧缓冲，那么这一帧会被丢弃，显示器就会保持不变，继续显示上一帧内容，这就将导致导致画面卡顿</strong></p>
+<p>所以无论CPU,GPU，哪个消耗时间过长，都会导致在16.7ms内无法生成一帧缓存</p>
+<h2 id="FPS-卡顿监控方案"><a href="#FPS-卡顿监控方案" class="headerlink" title="FPS 卡顿监控方案"></a>FPS 卡顿监控方案</h2><p>FPS 卡顿监控方案的原理是 <strong>通过一段连续的 FPS 计算丢帧率来衡量当前页面绘制的质量</strong>。</p>
+<p>FPS（Frames Per Second）是指画面每秒传输的帧数。每秒帧数越多，所显示的动画就越流畅，一般只要保持 FPS 在 50-60，App 就会有流畅的体验，反之会感觉到卡顿。</p>
+<h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p><code>CADisplayLink</code> 是一个能让我们以和屏幕刷新率相同的频率将内容画到屏幕上的定时器。</p>
+<p>一旦 <code>CADisplayLink</code> 以特定的模式注册到 <code>runloop</code> 之后，每当屏幕需要刷新时，<code>runloop</code> 就会调用 <code>CADisplayLink</code> 绑定的 <code>target</code> 上的 <code>selector</code>，此时 <code>target</code> 可以读取到 <code>CADisplayLink</code> 的每次调用的时间戳，用来准备下一帧显示需要的数据。如：一个视频应用使用时间戳来计算下一帧要显示的视频数据。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>现阶段，常用的 FPS 监控几乎都是基于 <code>CADisplayLink</code> 实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">FPSMonitor</span>: NSObject &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timer: Timer?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> link: CADisplayLink?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> count: UInt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> lastTime: TimeInterval = <span class="number">0</span></span><br><span class="line">    func <span class="title function_">enableMonitor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> link == nil &#123;</span><br><span class="line">            link = CADisplayLink(target: self, selector: #selector(fpsInfoCalculate(_:)))</span><br><span class="line">            link?.add(to: RunLoop.main, forMode: .common)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            link?.isPaused = <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func <span class="title function_">disableMonitor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="type">let</span> <span class="variable">link</span> <span class="operator">=</span> link &#123;</span><br><span class="line">            link.isPaused = <span class="literal">true</span></span><br><span class="line">            link.invalidate()</span><br><span class="line">            self.link = <span class="type">nil</span></span><br><span class="line">            <span class="variable">lastTime</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@objc</span></span><br><span class="line">    func <span class="title function_">fpsInfoCalculate</span><span class="params">(_ link: CADisplayLink)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> lastTime == <span class="number">0</span> &#123;</span><br><span class="line">            lastTime = link.timestamp</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="type">let</span> <span class="variable">delta</span> <span class="operator">=</span> link.timestamp - lastTime</span><br><span class="line">        <span class="keyword">if</span> delta &gt;= <span class="number">1</span> &#123;</span><br><span class="line">            <span class="comment">// 间隔超过 1 秒</span></span><br><span class="line">            lastTime = link.timestamp</span><br><span class="line">            <span class="type">let</span> <span class="variable">fps</span> <span class="operator">=</span> Double(count) / <span class="type">delta</span></span><br><span class="line">            <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">            <span class="type">let</span> <span class="variable">intFps</span> <span class="operator">=</span> Int(fps + <span class="number">0.5</span>)</span><br><span class="line">            print(<span class="string">&quot;帧率：\(intFps)&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>CADisplayLink</code> 实现的 FPS 在生产场景中只有指导意义，不能代表真实的 FPS。因为基于 <code>CADisplayLink</code> 实现的 FPS 无法完全检测出当前 <strong>Core Animation</strong> 的性能情况，只能检测出当前 <strong>RunLoop</strong> 的帧率。</p>
+<h2 id="主线程卡顿监控"><a href="#主线程卡顿监控" class="headerlink" title="主线程卡顿监控"></a>主线程卡顿监控</h2><p>主线程卡顿监控方案的原理是 <strong>通过子线程监控主线程的 RunLoop，判断两个状态区域之间的耗时是否达到一定阈值</strong>。因为主线程绝大部分计算或绘制任务都是以 RunLoop 为单位发生。单次 RunLoop 如果时长超过 16ms，就会导致 UI 体验的卡顿。</p>
+<p>美团的移动端性能监控方案 Hertz 采用的就是这种方式。</p>
+<p><img src="https://raw.githubusercontent.com/shijianmei/blog_Images/main/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7/%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7%E6%B5%81%E7%A8%8B.png"></p>
+<p>首先我们需要了解一下 RunLoop 的原理。</p>
+<h3 id="RunLoop-定义"><a href="#RunLoop-定义" class="headerlink" title="RunLoop 定义"></a>RunLoop 定义</h3><p>RunLoop 是 iOS 事件响应与任务处理最核心的机制。当有持续的异步任务需求时，我们会创建一个独立的生命周期可控的线程。<strong>RunLoop 就是控制线程生命周期并接收事件进行处理的机制</strong>。</p>
+<h3 id="RunLoop-机制"><a href="#RunLoop-机制" class="headerlink" title="RunLoop 机制"></a>RunLoop 机制</h3><p><strong>主线程（有 RunLoop 的线程）几乎所有函数都从以下六个函数之一的函数调起：</strong></p>
+<ol>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION</code><ol>
+<li>CFRunloop is calling out to an abserver callback function</li>
+<li>用于向外部报告 RunLoop 当前状态的改变，框架中很多机制都由 RunLoopObserver 触发，如：CAAnimation</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK</code><ol>
+<li>CFRunloop is calling out to a block</li>
+<li>消息通知、非延迟的 perform、dispatch 调用、block 回调、KVO</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE</code><ol>
+<li>CFRunloop is servicing the main dispatch queue</li>
+<li>执行主队列上的任务</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION</code><ol>
+<li>CFRunloop is calling out to a timer callback function</li>
+<li>基于定时器的延迟的 perfrom，dispatch 调用</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION</code><ol>
+<li>CFRunloop is calling out to a source 0 perform function</li>
+<li>处理 App 内部事件、App自己负责管理（触发），如：<code>UIEvent</code>、<code>CFSocket</code>。普通函数调用，系统调用</li>
+</ol>
+</li>
+<li><code>CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION</code><ol>
+<li>CFRunloop is calling out to a source 1 perform function</li>
+<li>由 RunLoop 和内核管理，Mach port 驱动，如：<code>CFMachPort</code>、<code>CFMessagePort</code><h3 id="RunLoop-运行时"><a href="#RunLoop-运行时" class="headerlink" title="RunLoop 运行时"></a>RunLoop 运行时</h3></li>
+</ol>
+</li>
+</ol>
+<p>如下所示为 <code>CFRunLoop</code> 源码中的核心方法 <code>CFRunLoopRun</code> 简化后的主要逻辑。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int32_t</span> __CFRunLoopRun() &#123;</span><br><span class="line">    <span class="comment">// 1. 通知 Observers：即将进入 RunLoop</span></span><br><span class="line">    __CFRunLoopDoObservers(KCFRunLoopEntry);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">// 2. 通知Observers：即将要处理 timer</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopBeforeTimers);</span><br><span class="line">        <span class="comment">// 3. 通知Observers：即将要处理 source</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopBeforeSources);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理非延迟的主线程调用</span></span><br><span class="line">        __CFRunLoopDoBlocks();</span><br><span class="line">        <span class="comment">// 处理 UIEvent 事件</span></span><br><span class="line">        __CFRunLoopDoSource0();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// GCD dispatch main queue</span></span><br><span class="line">        <span class="built_in">CheckIfExistMessagesInMainDispatchQueue</span>();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 4. 通知 Observers：即将进入休眠等待</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopBeforeWaiting);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 等待内核mach_msg事件</span></span><br><span class="line">        <span class="type">mach_port_t</span> wakeUpPort = <span class="built_in">SleepAndWaitForWakingUpPorts</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// mach_msg_trap</span></span><br><span class="line">        <span class="comment">// 休眠中 Zzz...</span></span><br><span class="line">        <span class="comment">// Received mach_msg, wake up</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 5. 通知 Observers：从休眠等待中醒来</span></span><br><span class="line">        __CFRunLoopDoObservers(kCFRunLoopAfterWaiting);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (wakeUpPort == timerPort) &#123;</span><br><span class="line">            <span class="comment">// 处理因timer的唤醒</span></span><br><span class="line">            __CFRunLoopDoTimers();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (wakeUpPort == mainDispatchQueuePort) &#123;</span><br><span class="line">            <span class="comment">// 处理异步方法唤醒，如：dispatch_async</span></span><br><span class="line">            __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// UI 刷新，动画显示</span></span><br><span class="line">            __CFRunLoopDoSource1();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 再次确保是否有同步的方法需要调用</span></span><br><span class="line">        __CFRunLoopDoBlocks()</span><br><span class="line">    &#125; <span class="keyword">while</span>(!stop &amp;&amp; !timeout);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 6. 通知 Observers：即将退出runloop</span></span><br><span class="line">    __CFRunLoopDoObservers(CFRunLoopExit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>RunLoop 在运行时一直在向外部报告当前状态的更新，其状态定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">CF_OPTIONS</span><span class="params">(CFOptionFlags, CFRunLoopActivity)</span> </span>&#123;</span><br><span class="line">    kCFRunLoopEntry ,           <span class="comment">// 进入 loop</span></span><br><span class="line">    kCFRunLoopBeforeTimers ,    <span class="comment">// 触发 Timer 回调</span></span><br><span class="line">    kCFRunLoopBeforeSources ,   <span class="comment">// 触发 Source0 回调</span></span><br><span class="line">    kCFRunLoopBeforeWaiting ,   <span class="comment">// 等待 mach_port 消息</span></span><br><span class="line">    kCFRunLoopAfterWaiting ,    <span class="comment">// 接收 mach_port 消息</span></span><br><span class="line">    kCFRunLoopExit ,            <span class="comment">// 退出 loop</span></span><br><span class="line">    kCFRunLoopAllActivities     <span class="comment">// loop 所有状态改变</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从 RunLoop 运行逻辑中，不难发现 NSRunLoop 调用方法主要在于两个状态区间：</p>
+<ul>
+<li><code>kCFRunLoopBeforeSources</code> 和 <code>kCFRunLoopBeforeWaiting</code> 之间</li>
+<li><code>kCFRunLoopAfterWaiting</code> 之后</li>
+<li><em>如果这两个时间内耗时太久而无法进入下一步，可以线程受阻。如果这个线程时主线程，表现出来就是出现了卡顿。</em>*</li>
+</ul>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><p>我们可以通过 <code>CFRunLoopObserverRef</code> 实时获取 <code>NSRunLoop</code> 的状态。具体使用方法如下：</p>
+<p>首先创建一个 <code>CFRunLoopObserverContext</code> 观察者 <code>observer</code>。然后将观察者 <code>observer</code> 添加到主线程 RunLoop 的 <code>kCFRunLoopCommonModes</code> 模式下进行观察。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)registerObserver &#123;</span><br><span class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="type">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">    CFRunLoopObserverRef observer = <span class="built_in">CFRunLoopObserverCreate</span>(kCFAllocatorDefault,</span><br><span class="line">                                                            kCFRunLoopAllActivities,</span><br><span class="line">                                                            YES,</span><br><span class="line">                                                            <span class="number">0</span>,</span><br><span class="line">                                                            &amp;runLoopObserverCallBack,</span><br><span class="line">                                                            &amp;context);</span><br><span class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetMain</span>(), observer, kCFRunLoopCommonModes);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, CFRunLoopActivity activity, <span class="type">void</span> *info)</span> </span>&#123;</span><br><span class="line">    MyClass *object = (__bridge MyClass*)info;</span><br><span class="line">    object-&gt;activity = activity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，创建一个持续的子线程专门用来监控主线程的 RunLoop 状态。为了让计算更精确，需要让子线程更及时的获知主线程 RunLoop 状态变化，<code>dispatch_semaphore_t</code> 是一个不错的选择。另外，卡顿需要覆盖多次连续短时间卡顿和单次长时间卡顿两种情景，所以判定条件也需要做适当优化。优化后的代码实现如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)registerObserver &#123;</span><br><span class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="type">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">    CFRunLoopObserverRef observer = <span class="built_in">CFRunLoopObserverCreate</span>(kCFAllocatorDefault,</span><br><span class="line">                                                            kCFRunLoopAllActivities,</span><br><span class="line">                                                            YES,</span><br><span class="line">                                                            <span class="number">0</span>,</span><br><span class="line">                                                            &amp;runLoopObserverCallBack,</span><br><span class="line">                                                            &amp;context);</span><br><span class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetMain</span>(), observer, kCFRunLoopCommonModes);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建信号</span></span><br><span class="line">    semaphore = <span class="built_in">dispatch_semaphore_create</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在子线程监控时长</span></span><br><span class="line">    <span class="built_in">dispatch_async</span>(<span class="built_in">dispatch_get_global_queue</span>(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="keyword">while</span> (YES) &#123;</span><br><span class="line">            <span class="comment">// 假定连续5次超时50ms认为卡顿(当然也包含了单次超时250ms)</span></span><br><span class="line">            <span class="type">long</span> st = <span class="built_in">dispatch_semaphore_wait</span>(semaphore, <span class="built_in">dispatch_time</span>(DISPATCH_TIME_NOW, <span class="number">50</span>*NSEC_PER_MSEC));</span><br><span class="line">            <span class="keyword">if</span> (st != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (activity == kCFRunLoopBeforeSources || activity==kCFRunLoopAfterWaiting) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (++timeoutCount &lt; <span class="number">5</span>)</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    </span><br><span class="line">                    <span class="built_in">NSLog</span>(@<span class="string">&quot;好像有点儿卡哦&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            timeoutCount = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, CFRunLoopActivity activity, <span class="type">void</span> *info)</span> </span>&#123;</span><br><span class="line">    MyClass *object = (__bridge MyClass*)info;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 记录状态值</span></span><br><span class="line">    object-&gt;activity = activity;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 发送信号</span></span><br><span class="line">    <span class="type">dispatch_semaphore_t</span> semaphore = moniotr-&gt;semaphore;</span><br><span class="line">    <span class="built_in">dispatch_semaphore_signal</span>(semaphore);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 检测到卡顿时应该立刻获取卡顿的方法堆栈信息，并推送至服务端共开发者分析，从而解决卡顿问题。<br>获取堆栈信息:</p>
+<p><strong>直接使用 PLCrashReporter 第三方开源库</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PLCrashReporterConfig *config = [[PLCrashReporterConfig alloc] initWithSignalHandlerType:PLCrashReporterSignalHandlerTypeBSD     </span><br><span class="line">                                                                   symbolicationStrategy:PLCrashReporterSymbolicationStrategyAll];</span><br><span class="line">PLCrashReporter *reporter = [[PLCrashReporter alloc] initWithConfiguration:config];</span><br><span class="line"><span class="comment">// 获取数据</span></span><br><span class="line">NSData *lagData = [reporter generateLiveReport];</span><br><span class="line"><span class="comment">// 转换成 PLCrashReport 对象</span></span><br><span class="line">PLCrashReport *lagReport = [[PLCrashReport alloc] initWithData:lagData error:<span class="literal">NULL</span>];</span><br><span class="line"><span class="comment">// 进行字符串格式化处理</span></span><br><span class="line">NSString *lagReportString = [PLCrashReportTextFormatter stringValueForCrashReport:lagReport withTextFormat:PLCrashReportTextFormatiOS];</span><br><span class="line"><span class="comment">// 将字符串上传服务器</span></span><br><span class="line"><span class="built_in">NSLog</span>(@<span class="string">&quot;lag happen, detail below: \n %@&quot;</span>,lagReportString);</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c35a81c3b9eb">CADisplayLink</a></p>
+<p><a target="_blank" rel="noopener" href="https://opensource.apple.com/source/CF/CF-1152.14/CFRunLoop.c.auto.html">Runloop</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aozhimin/iOS-Monitor-Platform#fps">iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/24/CPU%20&%20%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7/" rel="prev" title="CPU & 内存监控">
+      <i class="fa fa-chevron-left"></i> CPU & 内存监控
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/20/%E4%B8%80%E6%AC%A1%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/" rel="next" title="一次卡顿优化">
+      一次卡顿优化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%8D%A1%E9%A1%BF"><span class="nav-number">1.</span> <span class="nav-text">为什么会卡顿</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">图像显示原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E5%92%8CGPU%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-number">1.2.</span> <span class="nav-text">CPU和GPU做的事情</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU"><span class="nav-number">1.2.1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPU%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">GPU渲染管线</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI%E5%8D%A1%E9%A1%BF%E3%80%81%E6%8E%89%E5%B8%A7%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.</span> <span class="nav-text">UI卡顿、掉帧的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FPS-%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">FPS 卡顿监控方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">相关系统原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E7%BA%BF%E7%A8%8B%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7"><span class="nav-number">3.</span> <span class="nav-text">主线程卡顿监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RunLoop-%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">RunLoop 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RunLoop-%E6%9C%BA%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">RunLoop 机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RunLoop-%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="nav-number">3.3.</span> <span class="nav-text">RunLoop 运行时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">3.4.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shijianmei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shijianmei" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
